@@ -1,0 +1,67 @@
+<div class="flex w-full h-screen justify-center items-center">
+  <form
+    class="flex flex-col px-5 py-5 w-[350px] bg-[#ffffff] rounded-md shadow-md transition-all"
+    [formGroup]="loginForm"
+    (ngSubmit)="handleSubmit()"
+  >
+    <p class="font-bold mb-6 text-center text-xl text-[#474666] font-[Montserrat]">{{ isRegistering ? 'Register' : 'Login' }}</p>
+    <div class="flex flex-col gap-2 mb-2">
+      <label class="font-bold font-[Montserrat]">Email</label>
+      <input
+        class="border border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        formControlName="email"
+        [class]="( isInvalidField('email') === true ) ? 'border-red-500' : ''"
+      />
+    </div>
+    <div
+      *ngIf="isRegistering"
+      class="flex flex-col gap-2 mb-2"
+    >
+      <label class="font-bold font-[Montserrat]">Name</label>
+      <input
+        class="border border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        formControlName="name"
+        [class]="( isInvalidField('name') === true ) ? 'border-red-500' : ''"
+      />
+    </div>
+    <div class="flex flex-col gap-2 mb-3">
+      <label class="font-bold font-[Montserrat]">Password</label>
+      <input
+        class="border border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        formControlName="password"
+        [class]="( isInvalidField('password') === true ) ? 'border-red-500' : ''"
+        type="password"
+      />
+    </div>
+    <p
+    *ngIf="successMessage"
+      class="text-green-600 text-center mb-3 font-[Montserrat]"
+    >
+      {{ successMessage }}
+    </p>
+    <p
+    *ngIf="errorMessage"
+      class="text-red-400 text-center mb-3 font-[Montserrat]"
+    >
+      {{ errorMessage }}
+    </p>
+    <div class="flex items-center justify-center mb-2">
+      <button
+        class="cursor-pointer font-bold text-xl text-stone-50 bg-teal-600 py-2 px-5 rounded-xs font-[Montserrat] hover:bg-teal-700 transition-colors duration-150"
+        (click)="handleSubmit"
+      >
+        {{ isRegistering ? 'Register' : 'Login' }}
+      </button>
+    </div>
+    <p
+      class="cursor-pointer underline text-teal-600 text-end text-sm font-[Montserrat]"
+      (click)="toggleIsRegistering()"
+    >
+      {{ isRegistering ? 'Login' : 'Create an account' }}
+    </p>
+    <app-loader
+      *ngIf="isLoading"
+      class="h-[45px] w-[45px] self-center mt-3"
+    ></app-loader>
+  </form>
+</div>
