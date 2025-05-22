@@ -8,3 +8,8 @@ input {
 input:focus {
   outline: none;
 }
+
+
+html {
+  background-color: #f5f5ff;
+}

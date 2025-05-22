@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent {
   constructor(
     private _fb: FormBuilder,
     private authService: AuthService,
+    private router: Router
   ) {}
 
   errorMessage?: string;
@@ -73,6 +75,7 @@ export class LoginComponent {
           this.successMessage = 'Logged in successfully'
           localStorage.setItem('token', response.payload.token);
           this.errorMessage = undefined;
+          this.router.navigate([''])
           this.authService.setIsLoggedIn(true);
         },
         error: (error: any) => {
