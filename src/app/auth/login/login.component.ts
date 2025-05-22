@@ -73,6 +73,7 @@ export class LoginComponent {
           this.successMessage = 'Logged in successfully'
           localStorage.setItem('token', response.payload.token);
           this.errorMessage = undefined;
+          this.authService.setIsLoggedIn(true);
         },
         error: (error: any) => {
           if( error?.error?.error ) {
