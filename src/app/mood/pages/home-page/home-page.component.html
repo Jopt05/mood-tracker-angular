@@ -15,6 +15,7 @@
     class="flex flex-row justify-center mb-[100px]"
   >
     <button
+      *ngIf="!todaysMood"
       class="py-4 px-7 bg-[#4865db] rounded-md text-neutral-50 text-lg font-medium cursor-pointer transition-colors hover:bg-[#6348db]"
       (click)="isModalOpen = true"
     >
@@ -66,19 +67,19 @@
           <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat]">
             {{ todaysMood?.reflection }}
           </p>
-          <div class="flex flex-row mt-[60px] gap-2">
+          <!-- <div class="flex flex-row mt-[60px] gap-2">
             <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] italic">
               #Grateful
             </p>
             <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] italic">
               #Optimistic
             </p>
-          </div>
+          </div> -->
       </div>
     </div>
   </div>
   <div
-    *ngIf="!isEmpty"
+    *ngIf="!(moodData.length === 0)"
     class="mainContainer flex flex-col md:flex-row gap-7 mb-7"
   >
     <div
@@ -95,7 +96,7 @@
         </div>
         <div class="metricContainer flex flex-col gap-2 bg-[#89ccff] py-[35px] px-5 rounded-xl">
           <div class="flex flex-row items-center">
-            <p class="font-[Montserrat] text-lg font-medium">Neutral</p>
+            <p class="font-[Montserrat] text-lg font-medium">{{ averageMood | moodPipe }}</p>
           </div>
           <div class="flex flex-row gap-2 items-center">
             <i class='bxr  bx-arrow-right-stroke text-sm'></i>
@@ -110,7 +111,7 @@
         </div>
         <div class="metricContainer flex flex-col gap-2 bg-[#4865db] py-[35px] px-5 rounded-xl">
           <div class="flex flex-row items-center">
-            <p class="font-[Montserrat] text-lg font-medium text-neutral-50">5-6 Hours</p>
+            <p class="font-[Montserrat] text-lg font-medium text-neutral-50">{{ averageSleep | sleepPipe }} hours</p>
           </div>
           <div class="flex flex-row gap-2 items-center">
             <i class='bxr  bx-arrow-right-stroke text-sm text-neutral-50'></i>

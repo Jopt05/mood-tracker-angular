@@ -3,6 +3,7 @@ import { AuthService, UserPayload } from '../../../auth/services/auth.service';
 import { Mood, MoodService } from '../../services/mood.service';
 import { QuotesService } from '../../services/quotes.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { environment } from '../../../../environment/environment';
 
 @Component({
   selector: 'app-home-page',
@@ -25,12 +26,41 @@ export class HomePageComponent implements OnInit {
   todaysMood?: Mood;
   quote?: string;
   isModalOpen = false;
+  moodData: Mood[] = [];
+  averageMood?: string;
+  averageSleep?: string;
 
   ngOnInit(): void {
     this.getData();
   }
 
   getData() {
+    this.getUserInfo();
+    this.getMoods();
+    this.getQuotes();
+  };
+
+  getMoods() {
+    this.moodService.getMoods().subscribe({
+      next: (response) => {
+        this.moodService.getMoodsAsObservable().subscribe((moods) => {
+          if( moods.length == 0 ) {
+            this.isEmpty = true;
+            this.moodData = [];
+            return
+          }
+          this.moodData = moods;
+          this.setTodaysMood(this.moodData);
+          this.getMostRepeatedMood(this.moodData);
+        })
+      },
+      error: (err) => {
+        console.log({err})
+      }
+    });
+  }
+
+  getUserInfo() {
     this.authService.getCurrentUserInfo().subscribe({
       next: (response) => {
         this.userData = response;
@@ -40,19 +70,10 @@ export class HomePageComponent implements OnInit {
         console.log({err})
       }
     });
-    this.moodService.getMoods().subscribe({
-      next: (response) => {
-        if( response.payload.length == 0 ) {
-          this.isEmpty = true;
-          return
-        }
-        const moodsList = response.payload;
-        this.setTodaysMood(moodsList);
-      },
-      error: (err) => {
-        console.log({err})
-      }
-    });
+  }
+
+  getQuotes() {
+    if( environment.getQuotes == false ) return;
     this.quoteService.getQuote().subscribe({
       next: (response) => {
         this.quote =  response?.[0]?.quote
@@ -61,7 +82,7 @@ export class HomePageComponent implements OnInit {
         console.log({err})
       }
     })
-  };
+  }
 
   handleClose() {
     this.isModalOpen = false;
@@ -75,6 +96,26 @@ export class HomePageComponent implements OnInit {
       return
     }
     this.isEmpty = true;
+  };
+
+  getMostRepeatedMood(moodList: Mood[]) {
+    if( moodList.length === 0 ) return;
+    const moodCount = moodList.reduce((acc: any, mood: Mood) => {
+      acc[mood.mood] = (acc[mood.mood] || 0) + 1;
+      return acc;
+    }, {});
+    const mostRepeatedMood = Object.keys(moodCount).reduce((a, b) => moodCount[a] > moodCount[b] ? a : b);
+    this.averageMood = mostRepeatedMood;
+  }
+
+  getAverageSleepSchedule(moodList: Mood[]) {
+    if( moodList.length === 0 ) return;
+    const sleepCount = moodList.reduce((acc: any, mood: Mood) => {
+      acc[mood.sleep] = (acc[mood.sleep] || 0) + 1;
+      return acc;
+    }, {});
+    const mostRepeatedSleep = Object.keys(sleepCount).reduce((a, b) => sleepCount[a] > sleepCount[b] ? a : b);
+    this.averageSleep = mostRepeatedSleep;
   }
 
 }
