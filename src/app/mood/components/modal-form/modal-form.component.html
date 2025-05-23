@@ -1,0 +1,61 @@
+<div class="fixed bg-black w-full h-screen top-0 left-0 opacity-50 cursor-pointer z-10" (click)="handleClose()">
+</div>
+<div class="flex flex-col fixed py-6 px-5 bg-[#f5f5ff] w-[90%] md:w-[550px] z-20 md:left-[50%] top-[50%] md:translate-x-[-50%] translate-y-[-50%] rounded-lg">
+  <p class="font-bold text-[#20214f] text-3xl font-[Montserrat] mb-6">Log your mood</p>
+  <div class="flex flex-row items-center gap-5 mb-6">
+    <div class="flex h-[3px] flex-1/2 rounded-full bg-[#ffff]" [class.bg-[#20214f]!]="currentStep === 0"></div>
+    <div class="flex h-[3px] flex-1/2 rounded-full bg-[#ffff]" [class.bg-[#20214f]!]="currentStep === 1"></div>
+    <div class="flex h-[3px] flex-1/2 rounded-full bg-[#ffff]" [class.bg-[#20214f]!]="currentStep === 2"></div>
+  </div>
+  <div class="flex flex-col gap-2 mb-4">
+    <p *ngIf="currentStep === 0" class="font-bold text-[#20214f] text-lg font-[Montserrat] mb-6 text-center" [class.text-red-500]="hasError">How was your mood today?</p>
+    <p *ngIf="currentStep === 1" class="font-bold text-[#20214f] text-lg font-[Montserrat] mb-6 text-center" [class.text-red-500]="hasError">How many hours did you sleep tonight?</p>
+    <p *ngIf="currentStep === 2" class="font-bold text-[#20214f] text-lg font-[Montserrat] mb-6 text-center">You had any special thought today?</p>
+    <div
+      *ngIf="currentStep === 0"
+      class="flex flex-col gap-2"
+    >
+      <div
+        *ngFor="let mood of MOODS_LIST"
+        class="py-3 px-4 bg-[#ffff] rounded-sm border-1 border-[transparent] cursor-pointer hover:bg-[#ece8e8] transition-colors"
+        (click)="handleSelectItem('mood', mood.key)"
+        [ngClass]="{
+          'border-[#20214f]!': this.moodForm.controls['mood'].value === mood.key
+        }"
+      >
+        <p class="text-lg text-[#20214f] font-[Montserrat] font-medium">{{ mood.value }}</p>
+      </div>
+    </div>
+    <div
+      *ngIf="currentStep === 1"
+      class="flex flex-col gap-2"
+    >
+      <div
+        *ngFor="let sleep of SLEEP_LIST"
+        class="py-3 px-4 bg-[#ffff] rounded-sm border-1 border-[transparent] cursor-pointer hover:bg-[#ece8e8] transition-colors"
+        (click)="handleSelectItem('sleep', sleep.key)"
+        [ngClass]="{
+          'border-[#20214f]!': this.moodForm.controls['sleep'].value === sleep.key
+        }"
+      >
+        <p class="text-lg text-[#20214f] font-[Montserrat] font-medium">{{ sleep.value }}</p>
+      </div>
+    </div>
+    <div
+      *ngIf="currentStep === 2"
+      class="flex flex-col gap-2"
+    >
+      <textarea
+        class="font-[Montserrat] p-1 border-1 border-[#20214f] rounded-sm h-[150px]"
+        (keyup)="handleInputChange($event)"
+      ></textarea>
+    </div>
+  </div>
+  <button
+    class="bg-[#20214f] text-lg text-[#ffff] py-2 rounded-sm hover:bg-[#17183b] cursor-pointer font-medium"
+    (click)="handleNextStep()"
+  >
+    {{ (currentStep !== 2) ? 'Continue' : 'Save' }}
+  </button>
+  <app-loader *ngIf="isLoading"></app-loader>
+</div>

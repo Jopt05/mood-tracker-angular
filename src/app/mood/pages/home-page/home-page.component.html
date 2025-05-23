@@ -1,6 +1,7 @@
 <div class="flex flex-col w-full mt-7">
+  <app-modal-form *ngIf="isModalOpen" (onClose)="handleClose()"></app-modal-form>
   <p class="font-bold mb-5 font-[Montserrat] text-center text-[#4764d9] text-3xl">
-    Hello, {{ userData?.name }}!
+    Hello, {{ userData?.name || userData?.email }}!
   </p>
   <p class="font-bold mb-5 font-[Montserrat] text-center text-5xl text-[#20214f]">
     How are you feeling today?
@@ -15,11 +16,13 @@
   >
     <button
       class="py-4 px-7 bg-[#4865db] rounded-md text-neutral-50 text-lg font-medium cursor-pointer transition-colors hover:bg-[#6348db]"
+      (click)="isModalOpen = true"
     >
       Log today's mood
     </button>
   </div>
   <div
+    *ngIf="!isEmpty"
     class="mainContainer flex flex-col md:flex-row gap-7 mb-5"
   >
     <div
@@ -39,7 +42,7 @@
           <p
             class="font-semibold font-[Montserrat] text-sm mt-[40px] md:mt-[auto] md:text-lg italic"
           >
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa numquam omnis sunt, nulla, unde eius iste asperiores"
+            "{{ quote }}"
           </p>
       </div>
     </div>
@@ -52,7 +55,7 @@
             <p class="font-[Montserrat] text-lg font-bold">Sleep</p>
           </div>
           <p class="text-[#20214f] font-bold text-2xl font-[Montserrat]">
-            +9 hours
+            {{ todaysMood?.sleep | sleepPipe }} hours
           </p>
       </div>
       <div class="flex flex-col flex-1/2 bg-[#ffffff] p-5 rounded-md gap-2">
@@ -75,6 +78,7 @@
     </div>
   </div>
   <div
+    *ngIf="!isEmpty"
     class="mainContainer flex flex-col md:flex-row gap-7 mb-7"
   >
     <div

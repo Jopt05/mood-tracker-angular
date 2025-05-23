@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { LoaderComponent } from './loader/loader.component';
 import { MoodPipePipe } from './pipes/mood-pipe.pipe';
+import { SleepPipe } from './pipes/sleep.pipe';
 
 
 
@@ -10,7 +11,8 @@ import { MoodPipePipe } from './pipes/mood-pipe.pipe';
   declarations: [
     HeaderComponent,
     LoaderComponent,
-    MoodPipePipe
+    MoodPipePipe,
+    SleepPipe
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { MoodPipePipe } from './pipes/mood-pipe.pipe';
   exports: [
     HeaderComponent,
     LoaderComponent,
-    MoodPipePipe
+    MoodPipePipe,
+    SleepPipe
   ]
 })
 export class SharedModule { }
