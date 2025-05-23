@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoaderComponent } from './loader/loader.component';
 import { MoodPipePipe } from './pipes/mood-pipe.pipe';
 import { SleepPipe } from './pipes/sleep.pipe';
+import { MoodToImagePipe } from './pipes/mood-to-image.pipe';
 
 
 
@@ -12,7 +13,8 @@ import { SleepPipe } from './pipes/sleep.pipe';
     HeaderComponent,
     LoaderComponent,
     MoodPipePipe,
-    SleepPipe
+    SleepPipe,
+    MoodToImagePipe,
   ],
   imports: [
     CommonModule
@@ -21,7 +23,8 @@ import { SleepPipe } from './pipes/sleep.pipe';
     HeaderComponent,
     LoaderComponent,
     MoodPipePipe,
-    SleepPipe
+    SleepPipe,
+    MoodToImagePipe,
   ]
 })
 export class SharedModule { }

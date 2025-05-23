@@ -1,6 +1,6 @@
 <div class="flex w-full h-screen justify-center items-center">
   <form
-    class="flex flex-col px-5 py-5 w-[350px] bg-[#ffffff] rounded-md shadow-md transition-all"
+    class="flex flex-col px-5 py-5 w-[350px] bg-[#ffffff] rounded-md shadow-md transition-[height]"
     [formGroup]="loginForm"
     (ngSubmit)="handleSubmit()"
   >
@@ -34,14 +34,14 @@
       />
     </div>
     <p
-    *ngIf="successMessage"
-      class="text-green-600 text-center mb-3 font-[Montserrat]"
+      class="text-green-600 text-center mb-3 font-[Montserrat] transition-opacity opacity-0"
+      [class.opacity-100]="successMessage"
     >
       {{ successMessage }}
     </p>
     <p
-    *ngIf="errorMessage"
-      class="text-red-400 text-center mb-3 font-[Montserrat]"
+      class="text-red-400 text-center mb-3 font-[Montserrat] transition-all opacity-0"
+      [class.opacity-100]="errorMessage"
     >
       {{ errorMessage }}
     </p>
@@ -60,8 +60,8 @@
       {{ isRegistering ? 'Login' : 'Create an account' }}
     </p>
     <app-loader
-      *ngIf="isLoading"
-      class="h-[45px] w-[45px] self-center mt-3"
+      class="h-0 w-[45px] self-center mt-3 transition-all"
+      [class.h-[45px]]="isLoading"
     ></app-loader>
   </form>
 </div>

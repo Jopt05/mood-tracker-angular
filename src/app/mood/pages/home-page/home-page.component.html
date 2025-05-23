@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full mt-7">
+<div class="fadeIn flex flex-col w-full mt-7">
   <app-modal-form *ngIf="isModalOpen" (onClose)="handleClose()"></app-modal-form>
   <p class="font-bold mb-5 font-[Montserrat] text-center text-[#4764d9] text-3xl">
     Hello, {{ userData?.name || userData?.email }}!
@@ -27,7 +27,7 @@
     class="mainContainer flex flex-col md:flex-row gap-7 mb-5"
   >
     <div
-      class="subContainer flex-1/2 bg-[#ffffff] p-5 rounded-md"
+      class="subContainer flex flex-row flex-1/2 bg-[#ffffff] p-5 rounded-md"
     >
       <div class="flex flex-col w-[50%] h-[100%]">
           <p
@@ -45,6 +45,9 @@
           >
             "{{ quote }}"
           </p>
+      </div>
+      <div class="relative flex justify-end items-end w-[50%] h-[auto]">
+        <img class="h-[150px] w-[150px]" src="{{ todaysMood?.mood | moodToImagePipe }}" />
       </div>
     </div>
     <div
@@ -92,30 +95,30 @@
           class="flex flex-row gap-1 items-end"
         >
           <p class="text-lg font-bold text-[#20214f] font-[Montserrat]">Average mood</p>
-          <p class="text-sm text-[#bebdc4] font-[Montserrat]">(Last 5 check-ins)</p>
+          <p class="text-sm text-[#bebdc4] font-[Montserrat]">(Last {{ moodData.length }} check-ins)</p>
         </div>
         <div class="metricContainer flex flex-col gap-2 bg-[#89ccff] py-[35px] px-5 rounded-xl">
           <div class="flex flex-row items-center">
-            <p class="font-[Montserrat] text-lg font-medium">{{ averageMood | moodPipe }}</p>
+            <p class="font-[Montserrat] text-lg font-bold">{{ averageMood | moodPipe }}</p>
           </div>
           <div class="flex flex-row gap-2 items-center">
             <i class='bxr  bx-arrow-right-stroke text-sm'></i>
-            <p class="font-[Montserrat] text-sm">Same as the previous 5 check-ins</p>
+            <p class="font-[Montserrat] text-sm">Predominant mood from the past {{ moodData.length }} check-ins</p>
           </div>
         </div>
         <div
           class="flex flex-row gap-1 items-end"
         >
           <p class="text-lg font-bold text-[#20214f] font-[Montserrat]">Average sleep</p>
-          <p class="text-sm text-[#bebdc4] font-[Montserrat]">(Last 5 check-ins)</p>
+          <p class="text-sm text-[#bebdc4] font-[Montserrat]">(Last {{ moodData.length }} check-ins)</p>
         </div>
         <div class="metricContainer flex flex-col gap-2 bg-[#4865db] py-[35px] px-5 rounded-xl">
           <div class="flex flex-row items-center">
-            <p class="font-[Montserrat] text-lg font-medium text-neutral-50">{{ averageSleep | sleepPipe }} hours</p>
+            <p class="font-[Montserrat] text-lg font-bold text-neutral-50">{{ averageSleep | sleepPipe }} hours</p>
           </div>
           <div class="flex flex-row gap-2 items-center">
             <i class='bxr  bx-arrow-right-stroke text-sm text-neutral-50'></i>
-            <p class="font-[Montserrat] text-sm text-neutral-50">Increase from the previous check ins</p>
+            <p class="font-[Montserrat] text-sm text-neutral-50">Predominant sleep time from the past {{ moodData.length }} check-ins</p>
           </div>
         </div>
       </div>

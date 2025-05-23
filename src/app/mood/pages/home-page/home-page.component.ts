@@ -52,6 +52,7 @@ export class HomePageComponent implements OnInit {
           this.moodData = moods;
           this.setTodaysMood(this.moodData);
           this.getMostRepeatedMood(this.moodData);
+          this.getAverageSleepSchedule(this.moodData);
         })
       },
       error: (err) => {

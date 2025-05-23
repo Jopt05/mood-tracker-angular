@@ -22,3 +22,18 @@ textarea:focus {
 html {
   background-color: #f5f5ff;
 }
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: .5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
