@@ -4,11 +4,23 @@
   </h1>
   <div
     *ngIf="isLoggedIn"
-    class="flex items-center"
+    class="flex items-center relative p-2 cursor-pointer transition-colors hover:bg-neutral-300"
+    (click)="isModalOpen = !isModalOpen"
   >
     <div class="h-[40px] w-[40px] rounded-full">
         <img class="flex w-full h-full" src="non-logged-profile-photo.png"/>
     </div>
     <i class="bxr bx-chevron-down text-3xl"></i>
+    <div
+      *ngIf="isModalOpen"
+      class="modal absolute right-[50%] top-[100%]  bg-[#ffff]"
+    >
+      <p
+        class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7]"
+        (click)="logout()"
+      >
+        Logout
+      </p>
+    </div>
   </div>
 </div>

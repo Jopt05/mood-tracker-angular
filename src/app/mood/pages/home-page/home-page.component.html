@@ -34,7 +34,7 @@
           <p
             class="font-bold text-[#20214f] text-2xl md:text-4xl font-[Montserrat]"
           >
-            Very happy
+            {{ todaysMood?.mood | moodPipe }}
           </p>
           <p
             class="font-semibold font-[Montserrat] text-sm mt-[40px] md:mt-[auto] md:text-lg italic"
@@ -61,7 +61,7 @@
             <p class="font-[Montserrat] text-lg font-bold">Reflection of the day</p>
           </div>
           <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat]">
-            Woke up early and tackled a project!!
+            {{ todaysMood?.reflection }}
           </p>
           <div class="flex flex-row mt-[60px] gap-2">
             <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] italic">

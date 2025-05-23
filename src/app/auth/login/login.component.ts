@@ -81,9 +81,11 @@ export class LoginComponent {
         error: (error: any) => {
           if( error?.error?.error ) {
             this.errorMessage = error?.error?.error;
+            this.isLoading = false;
             return
           }
           this.errorMessage = 'Something went wrong'
+          this.isLoading = false;
         },
         complete: () => {
           this.isLoading = false;

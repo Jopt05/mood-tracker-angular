@@ -14,11 +14,17 @@ export class HeaderComponent implements OnInit {
   ){}
 
   isLoggedIn = false;
+  isModalOpen = false;
 
   ngOnInit(): void {
       this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
         this.isLoggedIn = isLoggedIn
       });
+  }
+
+  logout() {
+    this.isModalOpen = false;
+    this.authService.logout()
   }
 
 }

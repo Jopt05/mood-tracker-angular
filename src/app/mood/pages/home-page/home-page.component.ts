@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, UserPayload } from '../../../auth/services/auth.service';
+import { Mood, MoodService } from '../../services/mood.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,12 +11,14 @@ import { AuthService, UserPayload } from '../../../auth/services/auth.service';
 export class HomePageComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private moodService: MoodService,
   ) {}
 
   isLoading = true;
   userData: UserPayload | null = null;
   currentDate = new Date().toDateString();
+  todaysMood?: Mood;
 
   ngOnInit(): void {
     this.getData();
@@ -26,6 +29,19 @@ export class HomePageComponent implements OnInit {
       next: (response) => {
         this.userData = response;
         this.isLoading = false;
+      },
+      error: (err) => {
+        console.log({err})
+      }
+    });
+    this.moodService.getMoods().subscribe({
+      next: (response) => {
+        const moodsList = response.payload;
+        const currentDate = new Date().toLocaleDateString();
+        const todaysMood = moodsList.find( m => new Date(m.createdAt).toLocaleDateString() == currentDate );
+        if( todaysMood ) {
+          this.todaysMood = todaysMood;
+        }
       },
       error: (err) => {
         console.log({err})

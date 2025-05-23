@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
 import { BehaviorSubject, map, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface LoginResponse {
   message:    string;
@@ -50,7 +51,8 @@ export interface UserPayload {
 export class AuthService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
   ) { }
 
   private isLoggedIn = new BehaviorSubject(false);
@@ -72,6 +74,7 @@ export class AuthService {
     return this.http.get<GetUserResponse>(`${environment.apiKey}/users`).pipe(
       tap(response => {
         this.userData.next(response.payload);
+        this.isLoggedIn.next(true);
       })
     )
   }
@@ -82,5 +85,12 @@ export class AuthService {
 
   loginUser(data: { email: string, password: string }) {
     return this.http.post<LoginResponse>(`${environment.apiKey}/users/login`, data);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.userData.next(null);
+    this.isLoggedIn.next(false);
+    this.router.navigate(['/login'])
   }
 }
