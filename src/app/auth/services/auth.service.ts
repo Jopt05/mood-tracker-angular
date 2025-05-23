@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, of, tap } from 'rxjs';
 
 export interface LoginResponse {
   message:    string;
@@ -28,6 +28,22 @@ export interface RegisterPayload {
   updatedAt: Date;
 }
 
+export interface GetUserResponse {
+  message:    string;
+  statusCode: number;
+  payload:    UserPayload;
+}
+
+export interface UserPayload {
+  id:        number;
+  email:     string;
+  name:      string;
+  password:  string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +53,12 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  public isLoggedIn = new BehaviorSubject(false);
+  private isLoggedIn = new BehaviorSubject(false);
+  private userData = new BehaviorSubject<UserPayload | null>(null )
+
+  getCurrentUserInfo() {
+    return this.userData.asObservable();
+  }
 
   setIsLoggedIn(value: boolean) {
     this.isLoggedIn.next(value);
@@ -45,6 +66,14 @@ export class AuthService {
 
   getIsLoggedIn() {
     return this.isLoggedIn.asObservable();
+  }
+
+  getCurrentUser() {
+    return this.http.get<GetUserResponse>(`${environment.apiKey}/users`).pipe(
+      tap(response => {
+        this.userData.next(response.payload);
+      })
+    )
   }
 
   registerUser(data: { name?: string, email: string, password: string }) {

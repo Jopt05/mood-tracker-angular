@@ -1,6 +1,6 @@
 <div class="flex flex-col w-full mt-7">
   <p class="font-bold mb-5 font-[Montserrat] text-center text-[#4764d9] text-3xl">
-    Hello, Lisa!
+    Hello, {{ userData?.name }}!
   </p>
   <p class="font-bold mb-5 font-[Montserrat] text-center text-5xl text-[#20214f]">
     How are you feeling today?
@@ -8,7 +8,7 @@
   <p
     class="text-center mb-[80px] font-[Montserrat] font-medium text-[#716f85]"
   >
-    Wednesday, April 16th, 2025
+    {{ currentDate }}
   </p>
   <div
     class="flex flex-row justify-center mb-[100px]"
@@ -27,17 +27,17 @@
     >
       <div class="flex flex-col w-[50%] h-[100%]">
           <p
-            class="text-[#b2b2bf] font-medium text-2xl font-[Montserrat]"
+            class="text-[#b2b2bf] font-medium text-lg md:text-2xl font-[Montserrat]"
           >
             I'm feeling
           </p>
           <p
-            class="font-bold text-[#20214f] text-4xl font-[Montserrat]"
+            class="font-bold text-[#20214f] text-2xl md:text-4xl font-[Montserrat]"
           >
             Very happy
           </p>
           <p
-            class="font-semibold font-[Montserrat] text-lg mt-[auto] italic"
+            class="font-semibold font-[Montserrat] text-sm mt-[40px] md:mt-[auto] md:text-lg italic"
           >
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa numquam omnis sunt, nulla, unde eius iste asperiores"
           </p>
@@ -89,7 +89,7 @@
           <p class="text-lg font-bold text-[#20214f] font-[Montserrat]">Average mood</p>
           <p class="text-sm text-[#bebdc4] font-[Montserrat]">(Last 5 check-ins)</p>
         </div>
-        <div class="metricContainer bg-[#89ccff] py-[35px] px-5 rounded-xl">
+        <div class="metricContainer flex flex-col gap-2 bg-[#89ccff] py-[35px] px-5 rounded-xl">
           <div class="flex flex-row items-center">
             <p class="font-[Montserrat] text-lg font-medium">Neutral</p>
           </div>
@@ -104,7 +104,7 @@
           <p class="text-lg font-bold text-[#20214f] font-[Montserrat]">Average sleep</p>
           <p class="text-sm text-[#bebdc4] font-[Montserrat]">(Last 5 check-ins)</p>
         </div>
-        <div class="metricContainer bg-[#4865db] py-[35px] px-5 rounded-xl">
+        <div class="metricContainer flex flex-col gap-2 bg-[#4865db] py-[35px] px-5 rounded-xl">
           <div class="flex flex-row items-center">
             <p class="font-[Montserrat] text-lg font-medium text-neutral-50">5-6 Hours</p>
           </div>

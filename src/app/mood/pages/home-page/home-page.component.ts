@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService, UserPayload } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -6,6 +7,30 @@ import { Component } from '@angular/core';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
+
+  constructor(
+    private authService: AuthService
+  ) {}
+
+  isLoading = true;
+  userData: UserPayload | null = null;
+  currentDate = new Date().toDateString();
+
+  ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
+    this.authService.getCurrentUserInfo().subscribe({
+      next: (response) => {
+        this.userData = response;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.log({err})
+      }
+    })
+  }
 
 }
