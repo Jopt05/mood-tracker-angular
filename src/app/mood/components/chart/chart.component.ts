@@ -1,0 +1,212 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexDataLabels,
+  ApexTitleSubtitle,
+  ApexStroke,
+  ApexGrid,
+  ApexYAxis,
+  ApexPlotOptions,
+  ApexResponsive
+} from "ng-apexcharts";
+import { Mood, MoodService } from '../../services/mood.service';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
+  title: ApexTitleSubtitle,
+  colors: string[],
+  responsive: any,
+};
+
+@Component({
+  selector: 'app-chart',
+  standalone: false,
+  templateUrl: './chart.component.html',
+  styleUrl: './chart.component.css'
+})
+export class ChartsComponent implements OnInit {
+
+  constructor(
+    private moodService: MoodService
+  ) {}
+
+  @ViewChild("chart") chart!: ChartComponent;
+  isLoading = true;
+  moodData: Mood[] = [];
+  isChartReady = false;
+  chartOptions: ChartOptions = {} as ChartOptions;
+
+  ngOnInit(): void {
+    this.getMoodData();
+  }
+
+  getMoodData() {
+    this.isLoading = true;
+    this.moodService.getMoodsAsObservable().subscribe((response: Mood[]) => {
+      this.moodData = response;
+      this.isLoading = false;
+      this.setChartOptions();
+    })
+  }
+
+  formatMoodToChartColor(mood: string) {
+    console.log(mood)
+    switch (mood) {
+      case 'VERY_SAD':
+        return '#ff9b99'
+
+      case 'SAD':
+        return '#b8b1ff'
+
+      case 'NEUTRAL':
+        return '#87c9fc'
+
+      case 'HAPPY':
+        return '#88e77f'
+
+      case 'VERY_HAPPY':
+        return '#fec97b'
+
+      default:
+        return 'red'
+    }
+  }
+
+  formatSleepToChartValue(sleep: string) {
+    switch (sleep) {
+      case 'ZERO_TWO':
+        return 1
+
+      case 'THREE_FOUR':
+        return 2
+
+      case 'FIVE_SIX':
+        return 3
+
+      case 'SEVEN_EIGHT':
+        return 4
+
+      case 'NINE':
+        return 5
+
+      default:
+        return 1
+    }
+  }
+
+  formatDate(date: string) {
+    const d = new Date(date);
+    const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+    return `${da} ${mo}`;
+  }
+
+  setChartOptions() {
+    this.chartOptions = {
+      series: [
+        {
+          data: this.moodData.map(m => this.formatSleepToChartValue(m.sleep)),
+        },
+      ],
+      chart: {
+        type: "bar",
+        height: 350,
+        toolbar: {
+          show: false
+        }
+      },
+      title: {
+        text: "Moods and sleep trends",
+        align: "left",
+        style: {
+          fontFamily: 'Montserrat',
+          fontSize: '25px',
+          fontWeight: 'bold',
+          color: '#20214f'
+        }
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "30%",
+          borderRadius: 20,
+          distributed: true
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        show: false
+      },
+      xaxis: {
+        categories: this.moodData.map(m => m.updatedAt),
+        labels: {
+          style: {
+            fontFamily: 'Montserrat',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            colors: '#20214f'
+          },
+          formatter: (val: string) => this.formatDate(val)
+        },
+      },
+      yaxis: {
+        labels: {
+          style: {
+            fontFamily: 'Montserrat',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            colors: '#bebdc4'
+          },
+          formatter: function(val: number) {
+            if( val == 5 ) return '9+ hours';
+            if( val == 4 ) return '7-8 hours';
+            if( val == 3 ) return '5-6 hours';
+            if( val == 2 ) return '3-5 hours';
+            if( val == 1 ) return '0-2 hours';
+            return '0 hours';
+          }
+        },
+        min: 0,
+        max: 5,
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function(val:any) {
+            return "$ " + val + " thousands";
+          }
+        }
+      },
+      legend: {
+        show: false
+      },
+      colors: this.moodData.map(m => this.formatMoodToChartColor(m.mood)),
+      responsive: [
+        {
+          breakpoint: 1000,
+          options: {
+            chart: {
+              width: 1000
+            }
+          }
+        },
+      ]
+    };
+  }
+}

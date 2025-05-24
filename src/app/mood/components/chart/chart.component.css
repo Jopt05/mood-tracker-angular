@@ -1,0 +1,24 @@
+.chart-container {
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.bar-image {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform: translateX(-50%);
+}
+
+.apexcharts-bar-area.undefined {
+  background-color: red !important;
+  border: 5px solid blue !important;
+}

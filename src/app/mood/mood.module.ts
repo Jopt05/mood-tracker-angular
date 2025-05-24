@@ -4,7 +4,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { ModalFormComponent } from './components/modal-form/modal-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ChartComponent } from './components/chart/chart.component';
+import { ChartsComponent } from './components/chart/chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -12,12 +13,13 @@ import { ChartComponent } from './components/chart/chart.component';
   declarations: [
     HomePageComponent,
     ModalFormComponent,
-    ChartComponent
+    ChartsComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgApexchartsModule
   ]
 })
 export class MoodModule { }
