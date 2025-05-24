@@ -135,7 +135,7 @@ export class ChartsComponent implements OnInit {
   const chartContainer = document.querySelector('.chart-container') as HTMLElement;
   const barList = chartContainer.querySelectorAll('.apexcharts-bar-area.undefined');
 
-  barList.forEach((bar: any, index) => {
+  barList.forEach((bar, index) => {
     const imageUrl = this.imagesList.find(i => i.name === this.moodData[index].mood)?.url;
 
     if (imageUrl) {
@@ -143,7 +143,7 @@ export class ChartsComponent implements OnInit {
       const rectContainer = chartContainer.getBoundingClientRect();
 
       // Coordenadas relativas al contenedor
-      const left = rectBar.left - rectContainer.left + rectBar.width / 2 - 20;
+      const left = rectBar.left - rectContainer.left;
       const top = rectBar.top - rectContainer.top + 4;
 
       const image = document.createElement('img');
@@ -152,7 +152,8 @@ export class ChartsComponent implements OnInit {
       image.style.position = 'absolute';
       image.style.left = `${left}px`;
       image.style.top = `${top}px`;
-      image.style.width = '40px';
+      // image.style.width = '40px';
+      image.style.width = `${rectBar.width}px`;
       image.style.height = '40px';
       image.style.zIndex = '10';
 
@@ -200,7 +201,7 @@ export class ChartsComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "30%",
+          columnWidth: "40px",
           borderRadius: 20,
           distributed: true
         },
