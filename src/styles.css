@@ -78,6 +78,7 @@ html {
 @keyframes scaleAnimation {
 
   from {
+    visibility: hidden;
     opacity: 0;
     height: 0;
   }
@@ -85,16 +86,18 @@ html {
   80% {
     opacity: 1;
     height: auto;
+    visibility: visible;
   }
 
   90% {
     opacity: 1;
     height: auto;
+    visibility: visible;
   }
 
   to {
     opacity: 1;
     height: auto;
-    display: block;
+    visibility: visible;
   }
 }

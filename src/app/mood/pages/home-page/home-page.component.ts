@@ -49,6 +49,7 @@ export class HomePageComponent implements OnInit {
             this.moodData = [];
             return
           }
+          this.isEmpty = false;
           this.moodData = moods;
           this.setTodaysMood(this.moodData);
           this.getMostRepeatedMood(this.moodData);

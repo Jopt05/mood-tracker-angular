@@ -12,11 +12,11 @@
     </div>
     <i class="bxr bx-chevron-down text-3xl"></i>
     <div
-      class="modal absolute right-[50%] top-[100%] bg-[#ffff] h-0 opacity-0"
+      class="modal absolute right-[50%] top-[100%] bg-[#ffff] h-0 opacity-0 invisible"
       [class.scaleElement]="isModalOpen"
     >
       <p
-        class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7]"
+        class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7] h-full"
         (click)="logout()"
       >
         Logout
