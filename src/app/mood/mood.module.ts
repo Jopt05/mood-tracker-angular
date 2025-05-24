@@ -4,13 +4,15 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { ModalFormComponent } from './components/modal-form/modal-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChartComponent } from './components/chart/chart.component';
 
 
 
 @NgModule({
   declarations: [
     HomePageComponent,
-    ModalFormComponent
+    ModalFormComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
