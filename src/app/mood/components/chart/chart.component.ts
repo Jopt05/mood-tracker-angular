@@ -48,6 +48,29 @@ export class ChartsComponent implements OnInit {
   isChartReady = false;
   chartOptions: ChartOptions = {} as ChartOptions;
 
+  imagesList = [
+    {
+      name: 'VERY_SAD',
+      url: '/very_sad.png'
+    },
+    {
+      name: 'SAD',
+      url: '/sad.png'
+    },
+    {
+      name: 'NEUTRAL',
+      url: '/neutral.png'
+    },
+    {
+      name: 'HAPPY',
+      url: '/happy.png'
+    },
+    {
+      name: 'VERY_HAPPY',
+      url: '/very_happy.png'
+    }
+  ]
+
   ngOnInit(): void {
     this.getMoodData();
   }
@@ -106,6 +129,38 @@ export class ChartsComponent implements OnInit {
     }
   }
 
+  addImages() {
+  const imagesList = document.querySelectorAll('.mood-image');
+  imagesList.forEach(image => image.remove());
+  const chartContainer = document.querySelector('.chart-container') as HTMLElement;
+  const barList = chartContainer.querySelectorAll('.apexcharts-bar-area.undefined');
+
+  barList.forEach((bar: any, index) => {
+    const imageUrl = this.imagesList.find(i => i.name === this.moodData[index].mood)?.url;
+
+    if (imageUrl) {
+      const rectBar = bar.getBoundingClientRect();
+      const rectContainer = chartContainer.getBoundingClientRect();
+
+      // Coordenadas relativas al contenedor
+      const left = rectBar.left - rectContainer.left + rectBar.width / 2 - 20;
+      const top = rectBar.top - rectContainer.top + 4;
+
+      const image = document.createElement('img');
+      image.classList.add('mood-image');
+      image.src = imageUrl;
+      image.style.position = 'absolute';
+      image.style.left = `${left}px`;
+      image.style.top = `${top}px`;
+      image.style.width = '40px';
+      image.style.height = '40px';
+      image.style.zIndex = '10';
+
+      chartContainer.appendChild(image);
+    }
+  });
+  }
+
   formatDate(date: string) {
     const d = new Date(date);
     const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
@@ -125,6 +180,11 @@ export class ChartsComponent implements OnInit {
         height: 350,
         toolbar: {
           show: false
+        },
+        events: {
+          animationEnd: () => {
+            this.addImages()
+          }
         }
       },
       title: {
@@ -152,7 +212,7 @@ export class ChartsComponent implements OnInit {
         show: false
       },
       xaxis: {
-        categories: this.moodData.map(m => m.updatedAt),
+        categories: this.moodData.map(m => m.createdAt),
         labels: {
           style: {
             fontFamily: 'Montserrat',
