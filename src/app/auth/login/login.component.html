@@ -14,8 +14,8 @@
       />
     </div>
     <div
-      *ngIf="isRegistering"
-      class="flex flex-col gap-2 mb-2"
+      class="flex flex-col gap-2 mb-2 transition-all"
+      [class.shrinkElement]="!isRegistering"
     >
       <label class="font-bold font-[Montserrat]">Name</label>
       <input
