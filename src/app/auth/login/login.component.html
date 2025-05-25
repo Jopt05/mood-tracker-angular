@@ -8,9 +8,10 @@
     <div class="flex flex-col gap-2 mb-2">
       <label class="font-bold font-[Montserrat]">Email</label>
       <input
-        class="border border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        class="border p-1 border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
         formControlName="email"
         [class]="( isInvalidField('email') === true ) ? 'border-red-500' : ''"
+        autocapitalize="off"
       />
     </div>
     <div
@@ -19,19 +20,30 @@
     >
       <label class="font-bold font-[Montserrat]">Name</label>
       <input
-        class="border border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        class="border p-1 border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
         formControlName="name"
         [class]="( isInvalidField('name') === true ) ? 'border-red-500' : ''"
       />
     </div>
     <div class="flex flex-col gap-2 mb-3">
       <label class="font-bold font-[Montserrat]">Password</label>
-      <input
-        class="border border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
-        formControlName="password"
+      <div
+        class="flex p-1 flex-row items-center bg-[#f5f5ff] border border-solid border-[transparent] transition-colors duration-150 focus:border-b-[#474666] rounded-xs"
         [class]="( isInvalidField('password') === true ) ? 'border-red-500' : ''"
-        type="password"
-      />
+      >
+        <input
+          class="w-full text-lg font-[Montserrat]"
+          formControlName="password"
+          [type]="(isShowingPassword) ? 'text' : 'password'"
+        />
+        <i
+          class="bxr cursor-pointer"
+          [class.bx-eye-alt]="isShowingPassword"
+          [class.bx-eye-slash]="!isShowingPassword"
+          (click)="isShowingPassword = !isShowingPassword"
+        >
+        </i>
+      </div>
     </div>
     <p
       class="text-green-600 text-center mb-3 font-[Montserrat] transition-opacity opacity-0"

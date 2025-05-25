@@ -22,6 +22,7 @@ export class LoginComponent {
   successMessage?: string;
   isLoading = false;
   isRegistering = true;
+  isShowingPassword = false;
 
   public loginForm: FormGroup = this._fb.group({
     name: [''],
