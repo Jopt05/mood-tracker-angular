@@ -129,36 +129,36 @@ export class ChartsComponent implements OnInit {
   }
 
   addImages() {
-  const imagesList = document.querySelectorAll('.mood-image');
-  imagesList.forEach(image => image.remove());
-  const chartContainer = document.querySelector('.chart-container') as HTMLElement;
-  const barList = chartContainer.querySelectorAll('.apexcharts-bar-area.undefined');
+    const imagesList = document.querySelectorAll('.mood-image');
+    imagesList.forEach(image => image.remove());
+    const chartContainer = document.querySelector('.chart-container') as HTMLElement;
+    const barList = chartContainer.querySelectorAll('.apexcharts-bar-area.undefined');
 
-  barList.forEach((bar, index) => {
-    const imageUrl = this.imagesList.find(i => i.name === this.moodData[index].mood)?.url;
+    barList.forEach((bar, index) => {
+      const imageUrl = this.imagesList.find(i => i.name === this.moodData[index].mood)?.url;
 
-    if (imageUrl) {
-      const rectBar = bar.getBoundingClientRect();
-      const rectContainer = chartContainer.getBoundingClientRect();
+      if (imageUrl) {
+        const rectBar = bar.getBoundingClientRect();
+        const rectContainer = chartContainer.getBoundingClientRect();
 
-      // Coordenadas relativas al contenedor
-      const left = rectBar.left - rectContainer.left;
-      const top = rectBar.top - rectContainer.top + 4;
+        // Coordenadas relativas al contenedor
+        const left = rectBar.left - rectContainer.left;
+        const top = rectBar.top - rectContainer.top + 4;
 
-      const image = document.createElement('img');
-      image.classList.add('mood-image');
-      image.src = imageUrl;
-      image.style.position = 'absolute';
-      image.style.left = `${left}px`;
-      image.style.top = `${top - 5}px`;
-      // image.style.width = '40px';
-      image.style.width = `${rectBar.width}px`;
-      image.style.height = '40px';
-      image.style.zIndex = '10';
+        const image = document.createElement('img');
+        image.classList.add('mood-image');
+        image.src = imageUrl;
+        image.style.position = 'absolute';
+        image.style.left = `${left}px`;
+        image.style.top = `${top - 5}px`;
+        // image.style.width = '40px';
+        image.style.width = `${rectBar.width}px`;
+        image.style.height = '40px';
+        image.style.zIndex = '10';
 
-      chartContainer.appendChild(image);
-    }
-  });
+        chartContainer.appendChild(image);
+      }
+    });
   }
 
   formatDate(date: string) {
@@ -183,7 +183,28 @@ export class ChartsComponent implements OnInit {
         },
         events: {
           animationEnd: () => {
-            this.addImages()
+            if( this.moodData.length < 2 ) return;
+            setTimeout(() => {
+              this.addImages()
+            }, 600);
+          },
+          mounted: () => {
+            if( this.moodData.length > 1 ) return;
+            setTimeout(() => {
+              this.addImages()
+            }, 600);
+          }
+        },
+        animations: {
+          enabled: true,
+          speed: 500,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
           }
         }
       },
