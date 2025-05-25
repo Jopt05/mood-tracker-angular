@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService, LoginData, RegisterData } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { catchError, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -53,7 +54,30 @@ export class LoginComponent {
           this.successMessage = 'Registered correctly!'
           this.isRegistering = false;
           this.errorMessage = undefined;
-          this.successMessage = undefined;
+          this.authService.loginUser({
+            email: this.loginForm.get('email')?.value,
+            password: this.loginForm.get('password')?.value
+          }).subscribe({
+            next: (response) => {
+              this.successMessage = 'Logged in successfully'
+              localStorage.setItem('token', response.payload.token);
+              this.errorMessage = undefined;
+              this.router.navigate([''])
+              this.authService.setIsLoggedIn(true);
+            },
+            error: (error: any) => {
+              if( error?.error?.error ) {
+                this.errorMessage = error?.error?.error;
+                this.isLoading = false;
+                return
+              }
+              this.errorMessage = 'Something went wrong'
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isLoading = false;
+            }
+      })
         },
         error: (error: any) => {
           if( error?.error?.error ) {

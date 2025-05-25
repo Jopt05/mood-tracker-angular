@@ -44,6 +44,10 @@ export interface UserPayload {
   updatedAt: Date;
 }
 
+export interface RegisterData { name?: string, email: string, password: string };
+
+export interface LoginData { email: string, password: string }
+
 
 @Injectable({
   providedIn: 'root'
@@ -79,11 +83,11 @@ export class AuthService {
     )
   }
 
-  registerUser(data: { name?: string, email: string, password: string }) {
+  registerUser(data: RegisterData) {
     return this.http.post<RegisterResponse>(`${environment.apiKey}/users`, data);
   }
 
-  loginUser(data: { email: string, password: string }) {
+  loginUser(data: LoginData) {
     return this.http.post<LoginResponse>(`${environment.apiKey}/users/login`, data);
   }
 
