@@ -85,7 +85,6 @@ export class ChartsComponent implements OnInit {
   }
 
   formatMoodToChartColor(mood: string) {
-    console.log(mood)
     switch (mood) {
       case 'VERY_SAD':
         return '#ff9b99'

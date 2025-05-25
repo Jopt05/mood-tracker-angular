@@ -102,8 +102,9 @@ export class ModalFormComponent {
         reflection: this.moodForm.controls['reflection'].value
       }).subscribe({
         next: (response) => {
-          this.onClose.emit();
+          this.currentStep = 0;
           this.isLoading = false;
+          this.onClose.emit();
         },
         error: (err) => {
           this.onClose.emit();
@@ -112,7 +113,6 @@ export class ModalFormComponent {
         }
       })
     }
-    this.currentStep = this.currentStep + 1;
     this.hasError = false;
   }
 
