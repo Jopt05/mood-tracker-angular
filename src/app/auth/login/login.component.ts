@@ -38,13 +38,33 @@ export class LoginComponent {
     this.isRegistering = !this.isRegistering;
   }
 
+  getErrorMessage() {
+    const controlsList = Object.keys(this.loginForm.controls);
+    controlsList.forEach(key => {
+      if( this.loginForm.controls[key].errors ) {
+        if( this.loginForm.controls[key].errors?.['required'] ) {
+          this.errorMessage = `${key} is required`
+          return
+        }
+        if( this.loginForm.controls[key].errors?.['minlength'] ) {
+          this.errorMessage = `${key} must be at least 5 characters`
+          return
+        }
+        if( this.loginForm.controls[key].errors?.['email'] ) {
+          this.errorMessage = `${key} must be a valid email`
+          return
+        }
+      }
+    })
+  }
+
   handleSubmit() {
-    this.isLoading = true;
     if (this.loginForm.invalid) {
         this.loginForm.markAllAsTouched()
+        this.getErrorMessage()
         return
     }
-    // this.loginForm.reset()
+    this.isLoading = true;
     if( this.isRegistering ) {
       this.authService.registerUser({
         name: this.loginForm.get('name')?.value,
