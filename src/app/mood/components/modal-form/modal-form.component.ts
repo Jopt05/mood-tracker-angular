@@ -113,6 +113,7 @@ export class ModalFormComponent {
         }
       })
     }
+    this.currentStep = this.currentStep + 1;
     this.hasError = false;
   }
 
