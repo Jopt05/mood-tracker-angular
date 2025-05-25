@@ -27,24 +27,18 @@ export class HeaderComponent implements OnInit {
   }
 
   getTheme() {
-    const isDarkTheme = localStorage.getItem('isDarkTheme');
-    if( !isDarkTheme ) {
-      this.isDarkTheme = false;
-      this.themeService.deactivate();
-      return;
-    } else {
-      if (isDarkTheme === 'true') {
-        this.isDarkTheme = true;
-        this.themeService.activate();
-      } else {
-        this.isDarkTheme = false;
-        this.themeService.deactivate();
-      }
-    }
     this.themeService.getTheme().subscribe((isDarkTheme) => {
       this.isDarkTheme = isDarkTheme
       this.applyThemeToHtml();
     });
+
+    const isDarkTheme = localStorage.getItem('isDarkTheme');
+    if( isDarkTheme === undefined ) return;
+    if (isDarkTheme === 'true') {
+      this.themeService.activate();
+    } else {
+      this.themeService.deactivate();
+    }
   }
 
   applyThemeToHtml() {
