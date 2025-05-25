@@ -150,7 +150,7 @@ export class ChartsComponent implements OnInit {
       image.src = imageUrl;
       image.style.position = 'absolute';
       image.style.left = `${left}px`;
-      image.style.top = `${top}px`;
+      image.style.top = `${top - 5}px`;
       // image.style.width = '40px';
       image.style.width = `${rectBar.width}px`;
       image.style.height = '40px';
