@@ -61,8 +61,10 @@ export class HeaderComponent implements OnInit {
   toggleTheme() {
     if (this.isDarkTheme) {
       this.themeService.deactivate();
+      localStorage.setItem('isDarkTheme', 'false');
     } else {
       this.themeService.activate();
+      localStorage.setItem('isDarkTheme', 'true');
     }
   }
 
