@@ -1,14 +1,14 @@
 <div class="flex w-full h-screen justify-center items-center">
   <form
-    class="flex flex-col px-5 py-5 w-[350px] bg-[#ffffff] rounded-md shadow-md transition-[height]"
+    class="flex flex-col px-5 py-5 w-[350px] bg-[#ffffff] rounded-md shadow-md transition-[height] subContainer"
     [formGroup]="loginForm"
     (ngSubmit)="handleSubmit()"
   >
-    <p class="font-bold mb-6 text-center text-xl text-[#474666] font-[Montserrat]">{{ isRegistering ? 'Register' : 'Login' }}</p>
+    <p class="font-bold mb-6 text-center text-xl text-[#474666] font-[Montserrat] title">{{ isRegistering ? 'Register' : 'Login' }}</p>
     <div class="flex flex-col gap-2 mb-2">
-      <label class="font-bold font-[Montserrat]">Email</label>
+      <label class="font-bold font-[Montserrat] title">Email</label>
       <input
-        class="border p-1 border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        class="border p-1 border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat] buttonContainer title"
         formControlName="email"
         [class]="( isInvalidField('email') === true ) ? 'border-red-500' : ''"
         autocapitalize="off"
@@ -18,26 +18,26 @@
       class="flex flex-col gap-2 mb-2 transition-all"
       [class.shrinkElement]="!isRegistering"
     >
-      <label class="font-bold font-[Montserrat]">Name</label>
+      <label class="font-bold font-[Montserrat] title">Name</label>
       <input
-        class="border p-1 border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat]"
+        class="border p-1 border-solid border-[transparent] bg-[#f5f5ff] transition-colors duration-150 focus:border-b-[#474666] rounded-xs text-lg font-[Montserrat] buttonContainer title"
         formControlName="name"
         [class]="( isInvalidField('name') === true ) ? 'border-red-500' : ''"
       />
     </div>
     <div class="flex flex-col gap-2 mb-3">
-      <label class="font-bold font-[Montserrat]">Password</label>
+      <label class="font-bold font-[Montserrat] title">Password</label>
       <div
-        class="flex p-1 flex-row items-center bg-[#f5f5ff] border border-solid border-[transparent] transition-colors duration-150 focus:border-b-[#474666] rounded-xs"
+        class="flex p-1 flex-row items-center bg-[#f5f5ff] border border-solid border-[transparent] transition-colors duration-150 focus:border-b-[#474666] rounded-xs buttonContainer"
         [class]="( isInvalidField('password') === true ) ? 'border-red-500' : ''"
       >
         <input
-          class="w-full text-lg font-[Montserrat]"
+          class="w-full text-lg font-[Montserrat] title"
           formControlName="password"
           [type]="(isShowingPassword) ? 'text' : 'password'"
         />
         <i
-          class="bxr cursor-pointer"
+          class="bxr cursor-pointer title"
           [class.bx-eye-alt]="isShowingPassword"
           [class.bx-eye-slash]="!isShowingPassword"
           (click)="isShowingPassword = !isShowingPassword"
@@ -59,14 +59,14 @@
     </p>
     <div class="flex items-center justify-center mb-2">
       <button
-        class="cursor-pointer font-bold text-xl text-stone-50 bg-teal-600 py-2 px-5 rounded-xs font-[Montserrat] hover:bg-teal-700 transition-colors duration-150"
+        class="cursor-pointer font-bold text-xl text-stone-50 bg-teal-600 py-2 px-5 rounded-xs font-[Montserrat] hover:bg-teal-700 transition-colors duration-150 buttonContainer"
         (click)="handleSubmit"
       >
         {{ isRegistering ? 'Register' : 'Login' }}
       </button>
     </div>
     <p
-      class="cursor-pointer underline text-teal-600 text-end text-sm font-[Montserrat]"
+      class="cursor-pointer underline text-teal-600 text-end text-sm font-[Montserrat] greyText"
       (click)="toggleIsRegistering()"
     >
       {{ isRegistering ? 'Login' : 'Create an account' }}

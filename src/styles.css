@@ -21,6 +21,35 @@ textarea:focus {
 
 html {
   background-color: #f5f5ff;
+  transition: all .2s ease-in-out;
+}
+
+.darkHtml {
+  background-color: #3a3a59;
+}
+
+.darkHtml .title, .darkHtml .text {
+  color: #f5f5ff;
+}
+
+.darkHtml .greyText {
+  color: rgb(184, 184, 194);
+}
+
+.darkHtml .modal, .darkHtml .subContainer {
+  background-color: #44446f;
+}
+
+.darkHtml .buttonContainer {
+  background-color: #505194;
+}
+
+.darkHtml .firstTile {
+  background-color: #6e6e99;
+}
+
+.darkHtml .secondTile {
+  background-color: #5a5a7c;
 }
 
 .fadeIn {

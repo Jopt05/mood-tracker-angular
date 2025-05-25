@@ -1,26 +1,38 @@
-<div class="flex py-3 items-center justify-between">
-  <h1 class="font-bold text-3xl font-[Montserrat] text-[#20214f]">
+<div
+  class="flex py-3 items-center justify-between bg"
+>
+  <h1 class="title font-bold text-3xl font-[Montserrat] text-[#20214f]">
     Mood tracker
   </h1>
   <div
     *ngIf="isLoggedIn"
-    class="flex items-center relative p-2 cursor-pointer transition-colors hover:bg-neutral-300"
-    (click)="isModalOpen = !isModalOpen"
+    class="flex items-center relative gap-2 p-2 transition-color"
   >
-    <div class="h-[40px] w-[40px] rounded-full">
-        <img class="flex w-full h-full" src="non-logged-profile-photo.png"/>
-    </div>
-    <i class="bxr bx-chevron-down text-3xl"></i>
+    <i
+      class='bxr hover:bg-neutral-300 cursor-pointer p-3 text'
+      (click)="toggleTheme()"
+      [class.bx-moon]="isDarkTheme"
+      [class.bx-sun]="!isDarkTheme"
+    ></i>
     <div
-      class="modal absolute right-[50%] top-[100%] bg-[#ffff] h-0 opacity-0 invisible"
-      [class.scaleElement]="isModalOpen"
+      class="flex items-center hover:bg-neutral-300 cursor-pointer"
+      (click)="isModalOpen = !isModalOpen"
     >
-      <p
-        class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7] h-full"
-        (click)="logout()"
+      <div class="h-[40px] w-[40px] rounded-full">
+          <img class="flex w-full h-full" src="non-logged-profile-photo.png"/>
+      </div>
+      <i class="bxr bx-chevron-down text-3xl text"></i>
+      <div
+        class="modal absolute right-[50%] top-[100%] bg-[#ffff] h-0 opacity-0 invisible"
+        [class.scaleElement]="isModalOpen"
       >
-        Logout
-      </p>
+        <p
+          class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7] h-full text"
+          (click)="logout()"
+        >
+          Logout
+        </p>
+      </div>
     </div>
   </div>
 </div>

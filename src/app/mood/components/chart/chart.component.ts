@@ -13,6 +13,7 @@ import {
   ApexResponsive
 } from "ng-apexcharts";
 import { Mood, MoodService } from '../../services/mood.service';
+import { ThemeService } from '../../../shared/services/theme.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -39,7 +40,8 @@ export type ChartOptions = {
 export class ChartsComponent implements OnInit {
 
   constructor(
-    private moodService: MoodService
+    private moodService: MoodService,
+    private themeService: ThemeService,
   ) {}
 
   @ViewChild("chart") chart!: ChartComponent;
@@ -47,6 +49,7 @@ export class ChartsComponent implements OnInit {
   moodData: Mood[] = [];
   isChartReady = false;
   chartOptions: ChartOptions = {} as ChartOptions;
+  isDarkTheme = false;
 
   imagesList = [
     {
@@ -73,6 +76,14 @@ export class ChartsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMoodData();
+    this.getTheme()
+  }
+
+  getTheme() {
+    this.themeService.getTheme().subscribe((isDarkTheme) => {
+      this.isDarkTheme = isDarkTheme
+      this.setChartOptions();
+    });
   }
 
   getMoodData() {
@@ -215,7 +226,7 @@ export class ChartsComponent implements OnInit {
           fontFamily: 'Montserrat',
           fontSize: '25px',
           fontWeight: 'bold',
-          color: '#20214f'
+          color: (this.isDarkTheme) ? '#f5f5ff' : '#20214f'
         }
       },
       plotOptions: {
@@ -239,7 +250,7 @@ export class ChartsComponent implements OnInit {
             fontFamily: 'Montserrat',
             fontSize: '12px',
             fontWeight: 'bold',
-            colors: '#20214f'
+            colors: (this.isDarkTheme) ? '#f5f5ff' : '#20214f'
           },
           formatter: (val: string) => this.formatDate(val)
         },
@@ -250,7 +261,7 @@ export class ChartsComponent implements OnInit {
             fontFamily: 'Montserrat',
             fontSize: '12px',
             fontWeight: 'bold',
-            colors: '#bebdc4'
+            colors: (this.isDarkTheme) ? '#f5f5ff' : '#bebdc4'
           },
           formatter: function(val: number) {
             if( val == 5 ) return '9+ hours';
