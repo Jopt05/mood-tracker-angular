@@ -78,7 +78,7 @@ export class HomePageComponent implements OnInit {
     if( environment.getQuotes == false ) return;
     this.quoteService.getQuote().subscribe({
       next: (response) => {
-        this.quote =  response?.[0]?.quote
+        this.quote =  response.advice
       },
       error: (err) => {
         console.log({err})
