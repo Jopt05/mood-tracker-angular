@@ -197,25 +197,25 @@ export class ChartsComponent implements OnInit {
             if( this.moodData.length < 2 ) return;
             setTimeout(() => {
               this.addImages()
-            }, 600);
+            }, 300);
           },
           mounted: () => {
             if( this.moodData.length > 1 ) return;
             setTimeout(() => {
               this.addImages()
-            }, 600);
+            }, 300);
           }
         },
         animations: {
           enabled: true,
-          speed: 500,
+          speed: 200,
           animateGradually: {
             enabled: true,
-            delay: 150
+            delay: 0
           },
           dynamicAnimation: {
             enabled: true,
-            speed: 350
+            speed: 200
           }
         }
       },
