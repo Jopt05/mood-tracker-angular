@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, UserPayload } from '../../../auth/services/auth.service';
 import { Mood, MoodService } from '../../services/mood.service';
-import { QuotesService } from '../../services/quotes.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from '../../../../environment/environment';
+import { AdviceService } from '../../services/advice.service';
 
 @Component({
   selector: 'app-home-page',
@@ -16,7 +15,7 @@ export class HomePageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private moodService: MoodService,
-    private quoteService: QuotesService
+    private adviceService: AdviceService,
   ) {}
 
   isLoading = true;
@@ -76,9 +75,10 @@ export class HomePageComponent implements OnInit {
 
   getQuotes() {
     if( environment.getQuotes == false ) return;
-    this.quoteService.getQuote().subscribe({
+    this.adviceService.getAdvice().subscribe({
       next: (response) => {
-        this.quote =  response.advice
+        if( response == false ) return;
+        this.quote = response as string;
       },
       error: (err) => {
         console.log({err})
