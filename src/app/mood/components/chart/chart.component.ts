@@ -280,9 +280,21 @@ export class ChartsComponent implements OnInit {
       },
       tooltip: {
         y: {
-          formatter: function(val:any) {
-            return "$ " + val + " thousands";
+          formatter: (val: number, opts: any) => {
+            return ''
+          },
+          title: {
+            formatter: (val: string, opts: any) => {
+              const elementIndex = opts?.dataPointIndex;
+              if( elementIndex == undefined ) return '';
+              const mood = this.moodData[elementIndex];
+              return mood.reflection || 'No reflection this day';
+            },
           }
+        },
+        style: {
+          fontFamily: 'Montserrat',
+          fontSize: '12px',
         }
       },
       legend: {
