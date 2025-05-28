@@ -48,6 +48,10 @@ html {
   background-color: #6e6e99;
 }
 
+.darkHtml .firstTile:hover {
+  background-color: #50506e;
+}
+
 .darkHtml .secondTile {
   background-color: #5a5a7c;
 }

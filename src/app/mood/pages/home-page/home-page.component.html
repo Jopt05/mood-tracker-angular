@@ -1,5 +1,6 @@
 <div class="fadeIn flex flex-col w-full mt-7">
-  <app-modal-form *ngIf="isModalOpen" (onClose)="handleClose()"></app-modal-form>
+  <app-modal-form *ngIf="isModalOpen" (onClose)="handleClose('form')"></app-modal-form>
+  <app-mood-modal *ngIf="isMoodModalOpen" (onClose)="handleClose('checkin')"></app-mood-modal>
   <p class="font-bold mb-5 font-[Montserrat] text-center text-[#4764d9] text-3xl title">
     Hello, {{ userData?.name || userData?.email }}!
   </p>
@@ -97,9 +98,13 @@
           <p class="text-lg font-bold text-[#20214f] font-[Montserrat] title">Average mood</p>
           <p class="text-sm text-[#bebdc4] font-[Montserrat] greyText">(Last {{ moodData.length }} check-ins)</p>
         </div>
-        <div class="metricContainer flex flex-col gap-2 bg-[#89ccff] py-[35px] px-5 rounded-xl firstTile">
+        <div
+          class="metricContainer flex flex-col gap-2 bg-[#89ccff] py-[35px] px-5 rounded-xl cursor-pointer transition-all hover:bg-[#7db2db] firstTile"
+          (click)="handleOpenMoodModal()"
+        >
           <div class="flex flex-row items-center">
             <p class="font-[Montserrat] text-lg font-bold title">{{ averageMood | moodPipe }}</p>
+            <i class='bx bx-arrow-in-up-right-square ml-auto greyText'></i>
           </div>
           <div class="flex flex-row gap-2 items-center">
             <i class='bxr  bx-arrow-right-stroke text-sm title'></i>

@@ -6,7 +6,16 @@ import { BehaviorSubject, of, tap } from 'rxjs';
 export interface GetMoodsResponse {
   message:    string;
   statusCode: number;
-  payload:    Mood[];
+  payload:    Payload;
+}
+
+export interface Payload {
+  page:     number;
+  limit:    number;
+  total:    number;
+  next:     string;
+  previous: null;
+  mood:     Mood[];
 }
 
 export interface Mood {
@@ -16,15 +25,15 @@ export interface Mood {
   createdAt:  Date;
   updatedAt:  Date;
   authorId:   number;
-  reflection: string;
+  reflection: null | string;
 }
+
 
 export interface CreateMoodResponse {
   message:    string;
   statusCode: number;
   payload:    Mood;
 }
-
 
 
 @Injectable({
@@ -42,10 +51,14 @@ export class MoodService {
     return this.moodsList.asObservable();
   }
 
+  getMoodsWithPagination(page = 1) {
+    return this.http.get<GetMoodsResponse>(`${environment.apiKey}/moods?page=${page}`)
+  }
+
   getMoods() {
     return this.http.get<GetMoodsResponse>(`${environment.apiKey}/moods`).pipe(
       tap(response => {
-        this.moodsList.next(response.payload)
+        this.moodsList.next(response.payload.mood)
       })
     )
   }

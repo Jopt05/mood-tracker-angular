@@ -25,6 +25,7 @@ export class HomePageComponent implements OnInit {
   todaysMood?: Mood;
   quote?: string;
   isModalOpen = false;
+  isMoodModalOpen = false;
   moodData: Mood[] = [];
   averageMood?: string;
   averageSleep?: string;
@@ -86,8 +87,13 @@ export class HomePageComponent implements OnInit {
     })
   }
 
-  handleClose() {
-    this.isModalOpen = false;
+  handleClose(modalToClose: 'form' | 'checkin') {
+    if( modalToClose === 'form' ) this.isModalOpen = false;
+    if( modalToClose === 'checkin' ) this.isMoodModalOpen = false;
+  }
+
+  handleOpenMoodModal() {
+    this.isMoodModalOpen = true;
   }
 
   setTodaysMood(moodList: Mood[]) {
