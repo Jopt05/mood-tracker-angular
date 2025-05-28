@@ -53,7 +53,7 @@ export class MoodService {
   createMood(data: { mood: string, sleep: string, reflection?: string}) {
     return this.http.post<CreateMoodResponse>(`${environment.apiKey}/moods`, data).pipe(
       tap(response => {
-        this.moodsList.next([...this.moodsList.value, response.payload])
+        this.moodsList.next([response.payload,...this.moodsList.value])
       })
     )
   }

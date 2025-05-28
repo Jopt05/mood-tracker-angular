@@ -197,25 +197,25 @@ export class ChartsComponent implements OnInit {
             if( this.moodData.length < 2 ) return;
             setTimeout(() => {
               this.addImages()
-            }, 600);
+            }, 300);
           },
           mounted: () => {
             if( this.moodData.length > 1 ) return;
             setTimeout(() => {
               this.addImages()
-            }, 600);
+            }, 300);
           }
         },
         animations: {
           enabled: true,
-          speed: 500,
+          speed: 200,
           animateGradually: {
             enabled: true,
-            delay: 150
+            delay: 0
           },
           dynamicAnimation: {
             enabled: true,
-            speed: 350
+            speed: 200
           }
         }
       },
@@ -280,9 +280,21 @@ export class ChartsComponent implements OnInit {
       },
       tooltip: {
         y: {
-          formatter: function(val:any) {
-            return "$ " + val + " thousands";
+          formatter: (val: number, opts: any) => {
+            return ''
+          },
+          title: {
+            formatter: (val: string, opts: any) => {
+              const elementIndex = opts?.dataPointIndex;
+              if( elementIndex == undefined ) return '';
+              const mood = this.moodData[elementIndex];
+              return mood.reflection || 'No reflection this day';
+            },
           }
+        },
+        style: {
+          fontFamily: 'Montserrat',
+          fontSize: '12px',
         }
       },
       legend: {
