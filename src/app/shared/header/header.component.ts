@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
 import { ThemeService } from '../services/theme.service';
+import { LoadingServiceService } from '../services/loading-service.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private loadingService: LoadingServiceService
   ){}
 
   isDarkTheme = false;
@@ -50,6 +52,16 @@ export class HeaderComponent implements OnInit {
         htmlTag.classList.remove('darkHtml');
       }
     }
+  }
+
+  handleResetPassword() {
+    this.loadingService.show();
+    this.authService.sendPasswordResetEmail().subscribe((response) => {
+      if( response ) {
+        this.loadingService.hide();
+        alert('Password reset email sent successfully.');
+      };
+    })
   }
 
   toggleTheme() {

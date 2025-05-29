@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService, LoginData, RegisterData } from '../services/auth.service';
+import { AuthService, LoginData, RegisterData } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { catchError, tap, throwError } from 'rxjs';
 

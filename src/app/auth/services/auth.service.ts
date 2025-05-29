@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
-import { BehaviorSubject, map, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 export interface LoginResponse {
@@ -81,6 +81,25 @@ export class AuthService {
         this.isLoggedIn.next(true);
       })
     )
+  }
+
+  updateUser(data: Partial<RegisterData>, token: string) {
+    return this.http.put<RegisterResponse>(`${environment.apiKey}/users`, data, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+
+  sendPasswordResetEmail() {
+    return this.http.get(`${environment.apiKey}/users/auth/reset-password`).pipe(
+      map(response => {
+        return of(true);
+      }),
+      catchError(error => {
+        return of(false);
+      })
+    );
   }
 
   registerUser(data: RegisterData) {
