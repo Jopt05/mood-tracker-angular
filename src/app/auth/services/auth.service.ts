@@ -91,8 +91,8 @@ export class AuthService {
     });
   }
 
-  sendPasswordResetEmail() {
-    return this.http.get(`${environment.apiKey}/users/auth/reset-password`).pipe(
+  sendPasswordResetEmail(userId: number) {
+    return this.http.get(`${environment.apiKey}/users/auth/reset-password/${userId}`).pipe(
       map(response => {
         return of(true);
       }),

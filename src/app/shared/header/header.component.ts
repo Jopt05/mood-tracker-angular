@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService, UserPayload } from '../../auth/services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { LoadingServiceService } from '../services/loading-service.service';
 
@@ -20,10 +20,14 @@ export class HeaderComponent implements OnInit {
   isDarkTheme = false;
   isLoggedIn = false;
   isModalOpen = false;
+  userData?: UserPayload;
 
   ngOnInit(): void {
       this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
         this.isLoggedIn = isLoggedIn
+      });
+      this.authService.getCurrentUserInfo().subscribe((userData) => {
+        this.userData = userData || undefined;
       });
       this.getTheme();
   }
@@ -55,11 +59,11 @@ export class HeaderComponent implements OnInit {
   }
 
   handleResetPassword() {
+    if( !this.userData ) return;
     this.loadingService.show();
-    this.authService.sendPasswordResetEmail().subscribe((response) => {
+    this.authService.sendPasswordResetEmail( this.userData.id ).subscribe((response) => {
       if( response ) {
         this.loadingService.hide();
-        alert('Password reset email sent successfully.');
       };
     })
   }
