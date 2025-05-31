@@ -4,11 +4,13 @@ import { LoginComponent } from './auth/pages/login/login.component';
 import { HomePageComponent } from './mood/pages/home-page/home-page.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { ResetPasswordComponent } from './auth/pages/reset-password/reset-password.component';
+import { RequestResetComponent } from './auth/pages/request-reset/request-reset.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: '', component: HomePageComponent, canLoad:[ AuthGuard ], canActivate: [AuthGuard] },
     { path: 'auth/reset-password', component: ResetPasswordComponent, pathMatch: 'full' },
+    { path: 'auth/request-reset-password', component: RequestResetComponent, pathMatch: 'full' },
     { path: '**', redirectTo: 'login' }
 ]
 

@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/services/auth.interceptor';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     SharedModule,
     CommonModule,
     AuthModule,
+    RouterModule,
     HttpClientModule,
     NgApexchartsModule,
   ],

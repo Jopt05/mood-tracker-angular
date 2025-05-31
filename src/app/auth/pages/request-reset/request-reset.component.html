@@ -1,0 +1,44 @@
+<div class="flex w-full h-screen justify-center items-center">
+  <form
+    class="flex flex-col px-5 py-5 w-[350px] bg-[#ffffff] rounded-md shadow-md transition-[height] subContainer"
+    [formGroup]="emailForm"
+  >
+    <p class="font-bold mb-6 text-center text-xl text-[#474666] font-[Montserrat] title">Reset your password</p>
+    <div class="flex flex-col gap-2 mb-3">
+      <label class="font-bold font-[Montserrat] title">Your email</label>
+      <div
+        class="flex p-1 flex-row items-center bg-[#f5f5ff] border border-solid border-[transparent] transition-colors duration-150 focus:border-b-[#474666] rounded-xs buttonContainer"
+        [class]="( isInvalidField('email') === true ) ? 'border-red-500' : ''"
+      >
+        <input
+          class="w-full text-lg font-[Montserrat] title"
+          formControlName="email"
+        />
+      </div>
+    </div>
+    <p
+      class="text-green-600 text-center mb-3 font-[Montserrat] transition-opacity opacity-0"
+      [class.opacity-100]="successMessage"
+    >
+      {{ successMessage }}
+    </p>
+    <p
+      class="text-red-400 text-center mb-3 font-[Montserrat] transition-all opacity-0"
+      [class.opacity-100]="errorMessage"
+    >
+      {{ errorMessage }}
+    </p>
+    <div class="flex items-center justify-center mb-2">
+      <button
+        class="cursor-pointer font-bold text-xl text-stone-50 bg-teal-600 py-2 px-5 rounded-xs font-[Montserrat] hover:bg-teal-700 transition-colors duration-150 buttonContainer"
+        (click)="handleSubmit()"
+      >
+        Confirm
+      </button>
+    </div>
+    <app-loader
+      class="h-0 w-[45px] self-center mt-3 transition-all"
+    ></app-loader>
+  </form>
+</div>
+<p>request-reset works!</p>

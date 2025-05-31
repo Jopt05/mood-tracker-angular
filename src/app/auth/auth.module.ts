@@ -4,18 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { RequestResetComponent } from './pages/request-reset/request-reset.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RequestResetComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class AuthModule { }
