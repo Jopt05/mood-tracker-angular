@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit {
   handleResetPassword() {
     if( !this.userData ) return;
     this.loadingService.show();
-    this.authService.sendPasswordResetEmail( this.userData.id ).subscribe((response) => {
+    this.authService.sendPasswordResetEmail( this.userData.email ).subscribe((response) => {
       if( response ) {
         this.loadingService.hide();
       };
