@@ -1,0 +1,95 @@
+<div class="flex w-full mt-7">
+  <div
+    class="flex flex-col w-full items-center"
+  >
+    <div
+      class="flex w-[200px] h-[200px] rounded-full relative"
+    >
+      <input class="hidden" type="file" #filePicker (change)="onImagePicked($event)">
+      <img
+        class="w-full h-full rounded-full object-cover"
+        [src]="temporalImageSource || userData?.photoUrl || 'non-logged-profile-photo.png'"
+      />
+      <div
+        class="absolute right-2 bottom-2 flex justify-center items-center w-[40px] h-[40px] z-10 subContainer rounded-full"
+      >
+        <i (click)="handleAddFile()" class='bx bx-camera-alt text-2xl greyText cursor-pointer'></i>
+      </div>
+    </div>
+    <p
+      class="font-[Montserrat] text-xl mt-10 greyText"
+    >
+      Account created on: {{ creationDate }}
+    </p>
+    <form
+      [formGroup]="profileForm"
+      class="flex justify-center mt-10 md:w-[450px] w-[90%]"
+    >
+      <div
+        class="flex w-full flex-col gap-2"
+      >
+        <p
+          class="font-[Montserrat] text-sm title"
+        >
+          Name:
+        </p>
+        <div
+          class="flex w-full items-center px-3 subContainer"
+        >
+          <input
+            formControlName="name"
+            class="flex-1/2 py-2 font-[Montserrat] title"
+          />
+          <i
+            (click)="activateEdit()"
+            class='bx bx-pencil text-2xl cursor-pointer greyText'></i>
+        </div>
+      </div>
+    </form>
+    <div
+      *ngIf="isEditing"
+      class="flex flex-col md:w-[450px] w-[90%] items-center mt-10 gap-3 mb-10"
+    >
+      <div
+        (click)="handleSubmit()"
+        class="bg-blue-600 flex justify-center w-full py-3 rounded-sm cursor-pointer hover:opacity-80 transition-all"
+      >
+        <p
+          *ngIf="!isLoading"
+          class="text-white font-[Montserrat] text-xl font-medium"
+        >Save changes</p>
+        <app-loader
+          *ngIf="isLoading"
+          class="h-[22px]"
+        >
+        </app-loader>
+      </div>
+      <div
+        (click)="deactivateEdit()"
+        class="bg-red-600 flex justify-center w-full py-3 rounded-sm cursor-pointer hover:opacity-80 transition-all"
+      >
+        <p
+          class="text-white font-[Montserrat] text-xl font-medium"
+        >Cancel</p>
+      </div>
+    </div>
+    <div
+      class="flex flex-col md:w-[450px] w-[90%] items-center mt-10 gap-3 mb-10"
+    >
+      <div
+        class="bg-blue-600 flex justify-center w-full py-3 rounded-sm cursor-pointer hover:opacity-80 transition-all"
+      >
+        <p
+          class="text-white font-[Montserrat] text-xl font-medium"
+        >Reset password</p>
+      </div>
+      <div
+        class="bg-red-600 flex justify-center w-full py-3 rounded-sm cursor-pointer hover:opacity-80 transition-all"
+      >
+        <p
+          class="text-white font-[Montserrat] text-xl font-medium"
+        >Logout</p>
+      </div>
+    </div>
+  </div>
+</div>

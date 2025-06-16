@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService, UserPayload } from '../../auth/services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { LoadingServiceService } from '../services/loading-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private themeService: ThemeService,
-    private loadingService: LoadingServiceService
+    private loadingService: LoadingServiceService,
+    private router: Router,
   ){}
 
   isDarkTheme = false;
@@ -81,6 +83,11 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.isModalOpen = false;
     this.authService.logout()
+  }
+
+  handleRoute(route: string) {
+    this.isModalOpen = false;
+    this.router.navigate([route])
   }
 
 }

@@ -15,30 +15,28 @@
       [class.bx-sun]="!isDarkTheme"
     ></i>
     <div
-      class="flex items-center hover:bg-neutral-300 cursor-pointer"
-      (click)="isModalOpen = !isModalOpen"
+      class="relative h-[5px] w-[5px] self-end"
     >
-      <div class="h-[40px] w-[40px] rounded-full">
-          <img class="flex w-full h-full" src="non-logged-profile-photo.png"/>
-      </div>
-      <i class="bxr bx-chevron-down text-3xl text"></i>
       <div
         class="modal absolute right-[50%] top-[100%] bg-[#ffff] h-0 opacity-0 invisible"
         [class.scaleElement]="isModalOpen"
       >
         <p
-          class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7] h-full text-center text"
-          (click)="logout()"
+          class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7] h-full text-center text cursor-pointer"
+          (click)="handleRoute('profile')"
         >
-          Logout
-        </p>
-        <p
-          class="font-[Montserrat] py-2 px-4 font-semibold hover:bg-[#e4d7d7] h-full text-center text"
-          (click)="handleResetPassword()"
-        >
-          Reset password
+          Profile
         </p>
       </div>
+    </div>
+    <div
+      class="flex items-center hover:bg-neutral-300 cursor-pointer"
+      (click)="isModalOpen = !isModalOpen"
+    >
+      <div class="h-[40px] w-[40px]">
+          <img class="flex w-full h-full object-cover rounded-full" [src]="userData?.photoUrl || 'non-logged-profile-photo.png'"/>
+      </div>
+      <i class="bxr bx-chevron-down text-3xl text"></i>
     </div>
   </div>
 </div>

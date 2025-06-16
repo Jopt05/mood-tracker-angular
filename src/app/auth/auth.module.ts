@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { RequestResetComponent } from './pages/request-reset/request-reset.component';
 import { RouterModule } from '@angular/router';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
   declarations: [
     LoginComponent,
     ResetPasswordComponent,
-    RequestResetComponent
+    RequestResetComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { SleepPipe } from './pipes/sleep.pipe';
 import { MoodToImagePipe } from './pipes/mood-to-image.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { FullLoaderComponent } from './full-loader/full-loader.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -21,7 +22,8 @@ import { FullLoaderComponent } from './full-loader/full-loader.component';
     FullLoaderComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,

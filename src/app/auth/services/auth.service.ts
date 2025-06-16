@@ -42,7 +42,10 @@ export interface UserPayload {
   password:  string;
   createdAt: Date;
   updatedAt: Date;
+  photoUrl?: string;
 }
+
+export interface UpdateData { name?: string, email?: string, file?: any, password?: string }
 
 export interface RegisterData { name?: string, email: string, password: string };
 
@@ -83,12 +86,19 @@ export class AuthService {
     )
   }
 
-  updateUser(data: Partial<RegisterData>, token: string) {
-    return this.http.put<RegisterResponse>(`${environment.apiKey}/users`, data, {
+  updateUser(data: UpdateData, token: string) {
+    let formData = new FormData();
+    if( data.name ) formData.append('name', data.name);
+    if( data.file ) formData.append('file', data.file);
+    return this.http.put<RegisterResponse>(`${environment.apiKey}/users`, formData, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
       }
-    });
+    }).pipe(
+      tap(response => {
+        this.userData.next(response.payload);
+      })
+    );
   }
 
   sendPasswordResetEmail(userEmail: string) {
