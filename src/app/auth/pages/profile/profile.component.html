@@ -11,9 +11,9 @@
         [src]="temporalImageSource || userData?.photoUrl || 'non-logged-profile-photo.png'"
       />
       <div
-        class="absolute right-2 bottom-2 flex justify-center items-center w-[40px] h-[40px] z-10 subContainer rounded-full"
+        class="secondTile bg-[#4865db] absolute right-2 bottom-2 flex justify-center items-center w-[40px] h-[40px] z-10 rounded-full"
       >
-        <i (click)="handleAddFile()" class='bx bx-camera-alt text-2xl greyText cursor-pointer'></i>
+        <i (click)="handleAddFile()" class='bx bx-camera-alt text-2xl text-white cursor-pointer'></i>
       </div>
     </div>
     <p

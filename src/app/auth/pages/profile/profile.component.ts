@@ -5,6 +5,7 @@ import { ThemeService } from '../../../shared/services/theme.service';
 import { AuthService, UserPayload } from '../../services/auth.service';
 import { FormBuilder } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { NotificationsService } from '../../../shared/notifications.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private themeService: ThemeService,
     private loadingService: LoadingServiceService,
-    private router: Router,
+    private notificationService: NotificationsService,
     private formBuilder: FormBuilder
   ){}
 
@@ -90,6 +91,7 @@ export class ProfileComponent implements OnInit {
     this.authService.updateUser({name, file}, token).subscribe((response) => {
       if( response ) {
         this.isEditingBs.next(false);
+        this.notificationService.addNotification('Profile updated');
         this.profileForm.patchValue({
           file: null
         });
@@ -103,6 +105,7 @@ export class ProfileComponent implements OnInit {
     this.loadingService.show();
     this.authService.sendPasswordResetEmail( this.userData.email ).subscribe((response) => {
       if( response ) {
+        this.notificationService.addNotification('Password reset email sent');
         this.loadingService.hide();
       };
     })

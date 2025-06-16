@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MoodService } from '../../services/mood.service';
+import { NotificationsService } from '../../../shared/notifications.service';
 
 @Component({
   selector: 'app-modal-form',
@@ -14,6 +15,7 @@ export class ModalFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private moodService: MoodService,
+    private notificationService: NotificationsService
   ){}
 
   moodForm: FormGroup = this.formBuilder.group({
@@ -104,6 +106,7 @@ export class ModalFormComponent {
         next: (response) => {
           this.currentStep = 0;
           this.isLoading = false;
+          this.notificationService.addNotification('Mood created successfully')
           this.onClose.emit();
         },
         error: (err) => {

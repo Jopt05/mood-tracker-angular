@@ -8,6 +8,8 @@ import { MoodToImagePipe } from './pipes/mood-to-image.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { FullLoaderComponent } from './full-loader/full-loader.component';
 import { RouterModule } from '@angular/router';
+import { NotificationsContainerComponent } from './notifications-container/notifications-container.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 
@@ -20,6 +22,8 @@ import { RouterModule } from '@angular/router';
     MoodToImagePipe,
     FooterComponent,
     FullLoaderComponent,
+    NotificationsContainerComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,8 @@ import { RouterModule } from '@angular/router';
     SleepPipe,
     MoodToImagePipe,
     FooterComponent,
-    FullLoaderComponent
+    FullLoaderComponent,
+    NotificationsContainerComponent
   ]
 })
 export class SharedModule { }
