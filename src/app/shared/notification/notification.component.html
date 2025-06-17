@@ -3,7 +3,7 @@
   class="relative flex items-center w-full py-2 px-4 shadow bg-[#89ccff] firstTile"
 >
   <p
-    class="flex flex-1/2 font-[Montserrat] font-medium text-sm title"
+    class="flex flex-1/3 font-[Montserrat] font-medium text-sm title"
   >
     {{ message }}
   </p>
@@ -16,10 +16,6 @@
 </div>
 <div
   *ngIf="isOpen"
-  class="relative h-1 bg-blue-400 transition-all"
-  [class.w-[25%]]="currentValue === 3"
-  [class.w-[50%]]="currentValue === 2"
-  [class.w-[75%]]="currentValue === 1"
-  [class.w-[100%]]="currentValue === 0"
+  class="relative h-1 bg-blue-400 shrinkAnimation"
 >
 </div>

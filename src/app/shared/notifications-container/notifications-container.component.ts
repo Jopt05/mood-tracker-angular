@@ -22,7 +22,7 @@ export class NotificationsContainerComponent implements OnInit {
   }
 
   createNot() {
-    this.notificationService.addNotification('Test')
+    this.notificationService.addNotification('Mensaje largo de prueba de notificaciones')
   }
 
 }
