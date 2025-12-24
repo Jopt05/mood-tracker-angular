@@ -1,6 +1,7 @@
 <app-notification
   *ngFor="let n of notifications; index as i"
-  [message]="n"
+  [message]="n.message"
+  [isError]="n.isError"
   [index]="i"
 >
 

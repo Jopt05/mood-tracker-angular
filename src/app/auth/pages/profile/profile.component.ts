@@ -64,7 +64,10 @@ export class ProfileComponent implements OnInit {
 
   onImagePicked(event: any) {
     const file = event?.target?.files?.[0]
-    if( !file || !file.type.startsWith('image/') ) return;
+    if( !file || !file.type.startsWith('image/') ) {
+      this.notificationService.addNotification('Please select an image', true);
+      return;
+    };
     this.isEditingBs.next(true);
     const fileReader = new FileReader();
     fileReader.onload = () => {

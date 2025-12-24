@@ -11,6 +11,7 @@ import { NotificationsService } from '../notifications.service';
 export class NotificationComponent implements OnInit {
 
   @Input() message: string = '';
+  @Input() isError?: boolean;
   @Input() index!: number;
   isOpen = true;
   int = interval(1000);
@@ -22,6 +23,9 @@ export class NotificationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log({
+      rr: this.isError
+    })
     this.sub = this.int.subscribe((val) => {
       if( val === 3 ) {
         this.handleClose();

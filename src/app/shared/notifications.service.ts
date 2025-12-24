@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Notification } from './interfaces/Notification.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsService {
 
-  notifications = new BehaviorSubject<string[]>([]);
+  notifications = new BehaviorSubject<Notification[]>([]);
 
   constructor() { }
 
-  addNotification(message: string) {
+  addNotification(message: string, isError?: boolean) {
     const currentNotifications = this.notifications.getValue();
-    this.notifications.next([...currentNotifications, message]);
+    this.notifications.next([...currentNotifications, {message, isError}]);
   }
 
   removeNotification(index: number) {

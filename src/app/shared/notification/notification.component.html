@@ -1,6 +1,7 @@
 <div
   *ngIf="isOpen"
-  class="relative flex items-center w-full py-2 px-4 shadow bg-[#89ccff] firstTile"
+  [ngClass]="isError ? 'bg-red-400' : 'bg-[#6e6e99]'"
+  class="relative flex items-center w-full py-2 px-4 shadow"
 >
   <p
     class="flex flex-1/3 font-[Montserrat] font-medium text-sm title"
@@ -9,7 +10,7 @@
   </p>
   <p
     (click)="handleClose()"
-    class="font-[Montserrat] text-lg title font-bold cursor-pointer"
+    class="font-[Montserrat] text-lg title font-bold cursor-pointer ml-3"
   >
     x
   </p>
