@@ -71,4 +71,12 @@ export class MoodService {
     )
   }
 
+  updateMood(id: number, data: { mood: string, sleep: string, reflection?: string}) {
+    return this.http.put<CreateMoodResponse>(`${environment.apiKey}/moods/${id}`, data).pipe(
+      tap(response => {
+        this.moodsList.next(this.moodsList.value.map(mood => mood.id === id ? response.payload : mood))
+      })
+    )
+  }
+
 }

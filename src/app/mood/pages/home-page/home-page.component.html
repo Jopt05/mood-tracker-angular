@@ -1,6 +1,14 @@
 <div class="fadeIn flex flex-col w-full mt-7">
-  <app-modal-form *ngIf="isModalOpen" (onClose)="handleClose('form')"></app-modal-form>
-  <app-mood-modal *ngIf="isMoodModalOpen" (onClose)="handleClose('checkin')"></app-mood-modal>
+  <app-modal-form
+    *ngIf="isModalOpen"
+    (onClose)="handleClose('form')"
+    [isEditingMood]="isEditingMood"
+    [moodData]="todaysMood"
+  ></app-modal-form>
+  <app-mood-modal
+    *ngIf="isMoodModalOpen"
+    (onClose)="handleClose('checkin')"
+  ></app-mood-modal>
   <p class="font-bold mb-5 font-[Montserrat] text-center text-[#4764d9] text-3xl title">
     Hello, {{ userData?.name || userData?.email }}!
   </p>
@@ -68,17 +76,19 @@
             <i class='bxr  bx-star text-lg greyText'></i>
             <p class="font-[Montserrat] text-lg font-bold greyText">Reflection of the day</p>
           </div>
-          <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] title">
-            {{ todaysMood?.reflection }}
-          </p>
-          <!-- <div class="flex flex-row mt-[60px] gap-2">
-            <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] italic">
-              #Grateful
+          <div
+            class="flex justify-between items-center"
+          >
+            <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] title">
+              {{ todaysMood?.reflection }}
             </p>
-            <p class="text-[#bebdc4] font-medium text-sm font-[Montserrat] italic">
-              #Optimistic
-            </p>
-          </div> -->
+            <div
+              class="flex items-center bg-[#4865db] p-1 rounded-md cursor-pointer transition-colors hover:bg-[#6348db]"
+              (click)="handleEditTodaysMood()"
+            >
+              <i class='bxr bx-pencil text-lg text-white'></i>
+            </div>
+          </div>
       </div>
     </div>
   </div>

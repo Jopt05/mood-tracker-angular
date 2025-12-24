@@ -29,6 +29,7 @@ export class HomePageComponent implements OnInit {
   moodData: Mood[] = [];
   averageMood?: string;
   averageSleep?: string;
+  isEditingMood: boolean = false;
 
   ngOnInit(): void {
     this.getData();
@@ -94,6 +95,11 @@ export class HomePageComponent implements OnInit {
 
   handleOpenMoodModal() {
     this.isMoodModalOpen = true;
+  }
+
+  handleEditTodaysMood() {
+    this.isModalOpen = true;
+    this.isEditingMood = true;
   }
 
   setTodaysMood(moodList: Mood[]) {

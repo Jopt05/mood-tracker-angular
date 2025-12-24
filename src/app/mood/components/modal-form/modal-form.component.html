@@ -48,6 +48,7 @@
       <textarea
         class="font-[Montserrat] p-1 border-1 border-[#20214f] rounded-sm h-[150px] buttonContainer title"
         (keyup)="handleInputChange($event)"
+        [value]="moodForm.controls['reflection'].value"
       ></textarea>
     </div>
   </div>

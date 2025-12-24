@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MoodService } from '../../services/mood.service';
+import { Mood, MoodService } from '../../services/mood.service';
 import { NotificationsService } from '../../../shared/notifications.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-modal-form',
@@ -9,7 +10,10 @@ import { NotificationsService } from '../../../shared/notifications.service';
   templateUrl: './modal-form.component.html',
   styleUrl: './modal-form.component.css'
 })
-export class ModalFormComponent {
+export class ModalFormComponent implements OnInit {
+  @Input() isEditingMood: boolean = false;
+  @Input() moodData?: Mood;
+
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   constructor(
@@ -17,6 +21,16 @@ export class ModalFormComponent {
     private moodService: MoodService,
     private notificationService: NotificationsService
   ){}
+
+  ngOnInit(): void {
+    if( !this.isEditingMood ) return;
+    console.log(this.moodData?.reflection)
+    this.moodForm.patchValue({
+      mood: this.moodData?.mood,
+      sleep: this.moodData?.sleep,
+      reflection: this.moodData?.reflection
+    })
+  }
 
   moodForm: FormGroup = this.formBuilder.group({
     mood: [''],
@@ -87,7 +101,37 @@ export class ModalFormComponent {
     this.onClose.emit();
   }
 
-  handleNextStep() {
+  async createMood() {
+    this.isLoading = true;
+    const creationResponse = await firstValueFrom(
+      this.moodService.createMood({
+        mood: this.moodForm.controls['mood'].value,
+        sleep: this.moodForm.controls['sleep'].value,
+        reflection: this.moodForm.controls['reflection'].value
+      })
+    )
+    this.currentStep = 0;
+    this.isLoading = false;
+    this.notificationService.addNotification('Mood created successfully')
+    this.onClose.emit();
+  }
+
+  async updateMood() {
+    this.isLoading = true;
+    const updateResponse = await firstValueFrom(
+      this.moodService.updateMood(this.moodData?.id!, {
+        mood: this.moodForm.controls['mood'].value,
+        sleep: this.moodForm.controls['sleep'].value,
+        reflection: this.moodForm.controls['reflection'].value
+      })
+    )
+    this.currentStep = 0;
+    this.isLoading = false;
+    this.notificationService.addNotification('Mood updated successfully')
+    this.onClose.emit();
+  }
+
+  async handleNextStep() {
     if( this.currentStep === 0 && this.moodForm.controls['mood'].value === '' ) {
       this.hasError = true;
       return;
@@ -97,24 +141,12 @@ export class ModalFormComponent {
       return;
     }
     if( this.currentStep === 2 ) {
-      this.isLoading = true;
-      this.moodService.createMood({
-        mood: this.moodForm.controls['mood'].value,
-        sleep: this.moodForm.controls['sleep'].value,
-        reflection: this.moodForm.controls['reflection'].value
-      }).subscribe({
-        next: (response) => {
-          this.currentStep = 0;
-          this.isLoading = false;
-          this.notificationService.addNotification('Mood created successfully')
-          this.onClose.emit();
-        },
-        error: (err) => {
-          this.onClose.emit();
-          console.log({err})
-          this.isLoading = false;
-        }
-      })
+      if( this.isEditingMood ) {
+        await this.updateMood();
+        return;
+      }
+      await this.createMood();
+      return;
     }
     this.currentStep = this.currentStep + 1;
     this.hasError = false;
