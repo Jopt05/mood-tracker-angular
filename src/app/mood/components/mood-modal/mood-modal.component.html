@@ -1,8 +1,47 @@
 <div class="fixed bg-black w-full h-screen top-0 left-0 opacity-50 cursor-pointer z-20" (click)="handleClose()">
 </div>
-<div class="flex flex-col fixed py-6 px-5 bg-[#f5f5ff] max-h-[500px] w-[90%] md:w-[550px] z-20 md:left-[50%] top-[50%] md:translate-x-[-50%] translate-y-[-50%] rounded-lg transition-all modal">
+<div class="flex flex-col fixed py-6 px-5 bg-[#f5f5ff] overflow-y-auto max-h-[90vh] w-[90%] md:w-[550px] z-20 md:left-[50%] top-[50%] md:translate-x-[-50%] translate-y-[-50%] rounded-lg transition-all modal">
   <p class="font-bold text-center md:text-left text-[#20214f] text-3xl font-[Montserrat] mb-6 title">Your previous check-ins</p>
+  <app-calendar
+    (daySelected)="onDaySelected($event)"
+  ></app-calendar>
   <div
+    *ngIf="selectedMood"
+    class="flex flex-col mt-2 py-3 px-4 bg-[#ffff] rounded-sm border-1 border-[transparent] transition-colors mb-2 buttonContainer"
+  >
+    <p class="greyText text-sm font-[Montserrat] font-bold mb-4">{{ selectedMood?.createdAt | date }}</p>
+    <div
+      class="flex flex-col justify-center md:flex-row gap-8 md:gap-2"
+    >
+      <div
+        class="dataContainer flex md:flex-col flex-1/2 items-center"
+      >
+        <i class='bx bx-happy text-3xl md:mb-4 greyText'></i>
+        <img class="h-[100%] ml-auto md:m-0 object-contain w-[40px]" src="{{ selectedMood?.mood | moodToImagePipe }}" />
+      </div>
+      <div
+        class="dataContainer flex md:flex-col flex-1/2 items-center"
+      >
+        <i class='bxr bx-eye-closed text-3xl md:mb-4 greyText'></i>
+        <p
+          class="flex ml-auto md:m-0 h-[100%] items-center text-[#20214f] font-bold text-2xl font-[Montserrat] title"
+        >
+          {{ selectedMood?.sleep | sleepPipe }} hours
+        </p>
+      </div>
+      <div
+        class="dataContainer flex md:flex-col flex-1/2 items-center"
+      >
+        <i class='bx bx-intellect text-3xl mb-4 greyText'></i>
+        <p
+          class="flex ml-auto text-end md:m-0 md:text-center h-[100%] items-center text-[#20214f] font-bold text-xs font-[Montserrat] greyText"
+        >
+          {{ selectedMood?.reflection || 'No reflection this day' }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- <div
     class="flex flex-col overflow-y-auto"
     (scroll)="onScroll($event)"
   >
@@ -57,5 +96,5 @@
       [class.h-[50px]]="isLoadingMore"
     >
     </app-loader>
-  </div>
+  </div> -->
 </div>

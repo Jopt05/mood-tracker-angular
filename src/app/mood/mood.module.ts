@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChartsComponent } from './components/chart/chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MoodModalComponent } from './components/mood-modal/mood-modal.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 
 
@@ -15,7 +16,8 @@ import { MoodModalComponent } from './components/mood-modal/mood-modal.component
     HomePageComponent,
     ModalFormComponent,
     ChartsComponent,
-    MoodModalComponent
+    MoodModalComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,

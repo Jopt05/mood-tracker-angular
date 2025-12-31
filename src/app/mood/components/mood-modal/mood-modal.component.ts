@@ -15,6 +15,7 @@ export class MoodModalComponent implements OnInit {
   currentPage = 1;
   total = 0;
   hasReachedEnd = false;
+  selectedMood: Mood | null = null;
 
   constructor(
     private moodService: MoodService
@@ -23,6 +24,10 @@ export class MoodModalComponent implements OnInit {
   ngOnInit(): void {
     this.isLoadingMore = true;
     this.getMoods();
+  }
+
+  onDaySelected(mood: Mood) {
+    this.selectedMood = mood;
   }
 
   getMoods() {
@@ -38,6 +43,7 @@ export class MoodModalComponent implements OnInit {
     this.moods = [];
     this.currentPage = 1;
     this.total = 0;
+    this.selectedMood = null;
     this.onClose.emit();
   }
 

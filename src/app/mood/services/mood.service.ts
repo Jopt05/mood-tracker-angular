@@ -55,6 +55,10 @@ export class MoodService {
     return this.http.get<GetMoodsResponse>(`${environment.apiKey}/moods?page=${page}`)
   }
 
+  getMoodsByMonthAndYear(month: number, year: number) {
+    return this.http.get<any>(`${environment.apiKey}/moods/month/${month}/${year}`)
+  }
+
   getMoods() {
     return this.http.get<GetMoodsResponse>(`${environment.apiKey}/moods`).pipe(
       tap(response => {

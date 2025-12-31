@@ -1,0 +1,42 @@
+<!-- HEADER -->
+<div class="calendar-header greyText">
+  <button
+    class="text-lg p-2 hover:bg-[#f5f5ff] rounded-full"
+    (click)="previousMonth()"
+  >
+    ‹
+  </button>
+  <span
+    class="month text-lg"
+  >
+    {{ monthLabel | titlecase }}
+  </span>
+  <button
+    class="text-lg p-2 hover:bg-[#f5f5ff] rounded-full"
+    (click)="nextMonth()"
+  >
+    ›
+  </button>
+</div>
+
+<!-- WEEKDAYS -->
+<div class="weekdays greyText font-bold text-xs mb-2">
+  <span>M</span><span>T</span><span>W</span>
+  <span>T</span><span>F</span><span>S</span><span>X</span>
+</div>
+
+<!-- GRID -->
+<div class="calendar-grid">
+  <div
+    class="day greyText"
+    *ngFor="let day of days"
+    [class.disabled]="day.disabled"
+    (click)="selectDay(day)"
+  >
+    <span class="number">{{ day?.date?.getDate() }}</span>
+
+    <ng-container *ngIf="!day.disabled">
+      <img *ngIf="day.status" src="{{ day.status | moodToImagePipe }}" />
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* HEADER */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .month {
+    font-weight: 600;
+  }
+}
+
+/* WEEKDAYS */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+/* GRID */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+/* DAY CELL */
+.day {
+  min-height: 34px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+  /* background: #fff; */
+  /* color: white; */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day.empty {
+  background: red;
+  border: none;
+}
+
+.day.disabled {
+  /* background: #f4f4f4; */
+  color: #aaa;
+  pointer-events: none;
+}
+
+/* NUMBER */
+.number {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 0.6rem;
+}
+
+/* ICON */
+img {
+  width: 20px;
+  height: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .day {
+    min-height: 28px;
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}
