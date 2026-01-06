@@ -35,7 +35,7 @@ export class CalendarComponent implements OnInit {
       this.moodService.getMoodsByMonthAndYear(this.currentMonth.getMonth() + 1, this.currentMonth.getFullYear())
     );
 
-    this.moodList = response.payload;
+    this.moodList = response.payload.mood;
     console.log(this.moodList)
     this.buildCalendar();
   }
