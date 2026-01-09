@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Mood, MoodService } from '../../services/mood.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { Mood, MoodService } from '../../services/mood.service';
   styleUrl: './mood-modal.component.css'
 })
 export class MoodModalComponent implements OnInit {
+  @ViewChild('card') moodCard!: ElementRef;
+
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   moods: Mood[] = [];
@@ -28,6 +30,9 @@ export class MoodModalComponent implements OnInit {
 
   onDaySelected(mood: Mood) {
     this.selectedMood = mood;
+    setTimeout(() => {
+      this.moodCard.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 
   getMoods() {

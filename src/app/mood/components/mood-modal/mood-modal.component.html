@@ -7,6 +7,7 @@
   ></app-calendar>
   <div
     *ngIf="selectedMood"
+    #card
     class="flex flex-col mt-2 py-3 px-4 bg-[#ffff] rounded-sm border-1 border-[transparent] transition-colors mb-2 buttonContainer"
   >
     <p class="greyText text-sm font-[Montserrat] font-bold mb-4">{{ selectedMood?.createdAt | date }}</p>
