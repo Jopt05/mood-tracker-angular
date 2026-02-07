@@ -9,6 +9,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { MoodModalComponent } from './components/mood-modal/mood-modal.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { StatsDistributionComponent } from './components/stats-distribution/stats-distribution.component';
+import { StatsAverageComponent } from './components/stats-average/stats-average.component';
 
 
 
@@ -19,7 +20,8 @@ import { StatsDistributionComponent } from './components/stats-distribution/stat
     ChartsComponent,
     MoodModalComponent,
     CalendarComponent,
-    StatsDistributionComponent
+    StatsDistributionComponent,
+    StatsAverageComponent
   ],
   imports: [
     CommonModule,

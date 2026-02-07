@@ -46,6 +46,17 @@ export interface StatsDistributionPayload {
   sleepDistribution: { [key: string]: number };
 }
 
+export interface StatsAverageResponse {
+  message:    string;
+  statusCode: number;
+  payload:    StatsAveragePayload;
+}
+
+export interface StatsAveragePayload {
+  avg_mood: number;
+  avg_sleep: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +107,10 @@ export class MoodService {
 
   getStatsDistribution(daysRange: number = 30) {
     return this.http.get<StatsDistributionResponse>(`${environment.apiKey}/stats/distribution?days=${daysRange}`)
+  }
+
+  getStatsAverage(days: number = 7) {
+    return this.http.get<StatsAverageResponse>(`${environment.apiKey}/stats/average?days=${days}`)
   }
 
 }

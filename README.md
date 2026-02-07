@@ -8,6 +8,7 @@ A full-featured mood tracking application built with Angular 19 to practice mode
 - **Visual Calendar**: Interactive calendar view showing mood history
 - **Analytics Dashboard**: Charts and visualizations powered by ApexCharts
 - **Distribution Statistics**: Percentage breakdown of moods and sleep patterns over customizable time periods
+- **Average Statistics**: View average mood and sleep patterns with visual representations over selected periods
 - **User Authentication**: Complete auth flow with login, registration, and password reset
 - **User Profiles**: Manage user information and preferences
 - **Advice System**: Get personalized advice based on mood patterns
@@ -33,7 +34,7 @@ src/app/
 │   ├── pages/         # Login, profile, password reset
 │   └── services/      # Auth service, interceptors, validators
 ├── mood/              # Mood tracking module
-│   ├── components/    # Calendar, charts, modals, stats distribution
+│   ├── components/    # Calendar, charts, modals, stats distribution, stats average
 │   ├── pages/         # Home page
 │   └── services/      # Mood and advice services
 └── shared/            # Shared components and utilities
