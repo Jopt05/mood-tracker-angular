@@ -8,6 +8,7 @@ import { ChartsComponent } from './components/chart/chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MoodModalComponent } from './components/mood-modal/mood-modal.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { StatsDistributionComponent } from './components/stats-distribution/stats-distribution.component';
 
 
 
@@ -17,7 +18,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     ModalFormComponent,
     ChartsComponent,
     MoodModalComponent,
-    CalendarComponent
+    CalendarComponent,
+    StatsDistributionComponent
   ],
   imports: [
     CommonModule,

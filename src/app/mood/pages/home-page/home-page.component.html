@@ -147,4 +147,7 @@
     </app-chart>
     <!-- </div> -->
   </div>
+  <app-stats-distribution
+    *ngIf="!(moodData.length === 0)"
+  ></app-stats-distribution>
 </div>

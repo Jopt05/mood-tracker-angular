@@ -35,6 +35,17 @@ export interface CreateMoodResponse {
   payload:    Mood;
 }
 
+export interface StatsDistributionResponse {
+  message:    string;
+  statusCode: number;
+  payload:    StatsDistributionPayload;
+}
+
+export interface StatsDistributionPayload {
+  moodDistribution: { [key: string]: number };
+  sleepDistribution: { [key: string]: number };
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +92,10 @@ export class MoodService {
         this.moodsList.next(this.moodsList.value.map(mood => mood.id === id ? response.payload : mood))
       })
     )
+  }
+
+  getStatsDistribution(daysRange: number = 30) {
+    return this.http.get<StatsDistributionResponse>(`${environment.apiKey}/stats/distribution?days=${daysRange}`)
   }
 
 }
